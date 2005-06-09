@@ -6,7 +6,7 @@
 # *   begin                : Wednesday, January 25, 2005
 # *   copyright            : (C) 2004-2005  CompWebChess Development Team                    #
 # *   support              : http://developer.berlios.de/projects/chess/                              #
-# *   VERSION:             : $Id: chess.php,v 1.7 2005/04/28 22:54:39 trukfixer Exp $
+# *   VERSION:             : $Id$
 #                                                                                            #
 ##############################################################################################
 #    This program is free software; you can redistribute it and/or modify it under the       #
@@ -25,7 +25,7 @@
 #                        Boston, MA 02111-1307 USA                                           #
 ##############################################################################################
 
-        //load settings
+//load settings
 include_once ('global_includes.php');
 
 //start ob_start(); stuff
@@ -44,17 +44,37 @@ if(empty($_SESSION) || check_login($_SESSION['player_id'],$_COOKIE['PHPSESSID'])
 
 //How much of these includes are actually needed or in use here?
 //better to move these to be included only where required..
-    include_once ('chessutils.php');
-    include_once ('gui.php');
-    include_once ('chessdb.php');
-    include_once ('move.php');
-    include_once ('undo.php');
-    include_once ('newgame.php');
-//if we dont have a session set, this sucker gonna break bad anyhow- teh login should check, if there's no session
+    include_once ('chessutils.php'); //some pieces handlers, error handler, misc tools
+    include_once ('gui.php');     //contains write this, write that, draw board, and such shit
+    include_once ('chessdb.php'); //required - numerous functions within
+    include_once ('move.php');  //one function: doMove()
+    include_once ('undo.php');  //one function: doUndo()
+    include_once ('newgame.php');  //yeesh. huge file, contains one function to initialize board - tons of thematics shit here
+    //locate initBoard function here and see how important it is to cheare new game
+    //otherwise archive newgame.php for later modules features.
+
+//if we dont have a session set, this sucker gonna break bad anyhow- the login should check,
+//if there's no session
 //data, it should force a re-login
 
 // Language selection
 include_once ("languages/".$_SESSION['pref_language']."/strings.inc.php");
+
+//OK. if we click to go to a specific game, its via POST data and we get
+//$_POST['game_id']  which is set further down to SESSION
+
+//OK here's where we start the new stuff- total re-write, this.
+echo "Cookies, Sessions, POST, globals <pre>";
+print_r($_SESSION);
+print_r($_POST);
+print_r($GLOBALS);
+
+//HolEEEEEEE SHIT! what an eye-opener! horrible, terrible pile of useless junk loaded already!?
+//everything's global.. OMG!
+//this is gonna take a lonnnnngggg time to fix up.. yeesh.
+
+
+die();
 if(!empty($_POST['ToDo']))
 {
      //let's get rid of this "ToDo" junk- specific post values from specific forms will trigger specific functions
@@ -84,25 +104,42 @@ if(!empty($_POST['ToDo']))
      }
 }
 //check if loading game - This should be re-done to only load a specific game
-//if(empty($_SESSION['game_id']))
-//{
-// //we want to look for a game_id, if it isnt set, load an error page
-// if(!empty($_POST['game_id']))
-// {
-//      $SESSION['game_id'] = $_POST['game_id']
-// }
-// else
-// { return to main menu or hand them an error page }
 
-//after the above, at thiss point we can check specific POST keys and determine if to load a new game or re-load teh current session[game_id]
+ //we want to look for a game_id, if it isnt set, load an error page
 
-if (isset($_POST['game_id']) && $response != 'declined')
+if(!empty($_POST['game_id']))
 {
-    $_SESSION['game_id'] = $_POST['game_id'];
+    $SESSION['game_id'] = $_POST['game_id'];
+    $game_id = $_POST['game_id'];
 }
+else
+{
+    if(empty($_SESSION['game_id']))
+    {
+        //return to main menu or hand them an error page
+        header("location: mainmenu.php");
+    }
+}
+
+//after the above, at this point we can check specific POST keys and
+//determine if to load a new game or re-load the current session[game_id]
+if(!empty($_POST['response']))
+{
+    $response = $_POST['response'];
+    if (!empty($_POST['game_id']) && $response != 'declined')
+    {
+        $_SESSION['game_id'] = $_POST['game_id'];
+        $game_id = $_POST['game_id'];
+    }
+}
+else
+{
+        $response = "ok";
+}
+
 include_once ("EPDutils.php");
 //What is in this file? -
-//it contains the stuyff that converts a "pgn" data set into teh board positions. it's quite nice
+//it contains the stuff that converts a "pgn" data set into the board positions. it's quite nice
 //probably want to update it a little bit however....
 
 //OK let's get this sucker loaded.
@@ -118,12 +155,15 @@ else
 $isCheckMate = false;
 $isPromoting = false;
 $isUndoing = false;
-
-$load_history = loadHistory();//should be load_history($game_id) and return value is history array, better than globaling everything
-$load_game = loadGame();//dont know - should this return a true or false we can check? or does it return specific data?
+if(empty($game_id))
+{
+   $game_id = $_SESSION['game_id'];
+}
+$load_history = loadHistory($game_id);//should be load_history($game_id) and return value is history array, better than globaling everything
+$load_game = loadGame($game_id);//dont know - should this return a true or false we can check? or does it return specific data?
 
 $sql = $db->Prepare("SELECT * from {$db_prefix}games WHERE game_id=?");
-$query = $db->Execute($sql,array($_SESSION['game_id']));
+$query = $db->Execute($sql,array($game_id));
 db_op_result($query,__LINE__,__FILE__);
 $row = $query->fields;
 if (empty($row))
@@ -185,10 +225,16 @@ else
 {
      $opponent = $white;
 }
+//BROKEN POINT - below, it's all broke. SESSION data is fucked up
  //TODO: - I dont fully understand exactly what this code does, but appears it could use some optimization
  //perhaps a function- ########## RESEARCH MARKER START###########
-if (!isBoardDisabled() && !$isCheckMate && $timeLimit > 0)   //there's no else, this if ends at the bottom of script
-{
+var_dump($_SESSION);
+//SHEESH!  where the hell is gameID and this  ["isSharedPC"]=>  bool(false) ["playerID"]=>  int(-1) ["gameID"]=>  int(0) }  shit coming from??
+
+//if (!isBoardDisabled() && !$isCheckMate && $timeLimit > 0)
+//{
+//there's no else, this if ends at the bottom of script
+
     //this way we can allow kibbitzing, but not posting. in this way we can control what is loaded
     //and for certain games or player preferences, allow kibbitz may lock them out ..
      if (($white != $_SESSION['player_id']) && ($black != $_SESSION['player_id']))
@@ -197,20 +243,20 @@ if (!isBoardDisabled() && !$isCheckMate && $timeLimit > 0)   //there's no else, 
      if (tempoEsgotado($mycolor2))//what is this function for? document it and rename it.
      {
           //here we have to figure out teh time limit shit a little better- when the clock starts and stops..
-          $do_rankings = saveRanking($_SESSION['game_id'],"resign",$mycolor2,1);
+          $do_rankings = saveRanking($game_id,"resign",$mycolor2,1);
           $update_stamp = updateTimestamp();
           $time_limmit = $timeLimit*60;
           // Update the opponent time
           if ($mycolor2 == "white")
           {
                $sql = $db->Prepare("UPDATE games set timeWhite=? WHERE game_id=?");
-               $query = $db->Execute($sql,array($time_limit,$_SESSION['game_id']));
+               $query = $db->Execute($sql,array($time_limit,$game_id));
                db_op_result($query,__LINE__,__FILE__);
           }
           else
           {
                $sql = $db->Prepare("UPDATE games set timeBlack=? WHERE game_id=?");
-               $query = $db->Execute($sql,array($time_limit,$_SESSION['game_id']));
+               $query = $db->Execute($sql,array($time_limit,$game_id));
                db_op_result($query,__LINE__,__FILE__);
           }
                 $smarty->assign('js_checkmate_alert',"<script>alert('".$MSG_LANG['theflaghasfallen']." ".$mycolor2.$MSG_LANG['lost']."');  window.location='chess.php'; </script>");
@@ -247,7 +293,7 @@ if (!isBoardDisabled() && !$isCheckMate && $timeLimit > 0)   //there's no else, 
                //personal notepad entry
                if (!get_magic_quotes_gpc())
                     $_POST['note_msg'] = addslashes($_POST['note_msg']);
-               $p2 = mysql_query("SELECT count(*) from history WHERE game_id='".$_SESSION['game_id']."'");
+               $p2 = mysql_query("SELECT count(*) from history WHERE game_id='".$game_id."'");
                $row2 = mysql_fetch_array($p2);
                $rounds = floor(($row2[0]+1)/2); //WTF??
                $color = "b";
@@ -321,7 +367,7 @@ if (!isBoardDisabled() && !$isCheckMate && $timeLimit > 0)   //there's no else, 
 
 //Prepare for displaying the page.
 
-$smarty->assign('game_id',$_SESSION['game_id']);
+$smarty->assign('game_id',$game_id);
 
 //find out if it's the current player's turn
 //Didnt we just DO that up above??  - Yep...
@@ -531,7 +577,7 @@ $smarty->assign('template_set',$_SESSION['template_set']);
             </tr>
             <tr><td colspan="2" align=left bgcolor=white>
             <?php
-            echo writeChat($_SESSION['game_id']);
+            echo writeChat($game_id);
             ?>
             </td></tr>
             <tr><td colspan="2" align=center bgcolor=white><input type=text name=chat_msg size=50 onClick="stopTimer=1"><input type=submit value="<?=$MSG_LANG["write"]?>"></td></tr>
@@ -578,7 +624,7 @@ $smarty->assign('template_set',$_SESSION['template_set']);
 
     <td>
 
-   <input name="button2" type="button" class="BOTOES" onClick='document.logout.submit()' value="<?=$MSG_LANG["logoff"]?>"><input name="button3" type="button" onClick="window.open('analyze.php?whocolor=<?=$playersColor?>&game=<?=$_SESSION['game_id']?>', '_blank','toolbar=no,status=no,menubar=no,scrollbars=yes,width=850,height=600')" value="<?=$MSG_LANG["analyze"]?>"><input name="button5" border-width= "5"  type="button" class="BOTOES" onClick="window.location='MyGames.php'" value="<?=$MSG_LANG["mygames"]?>">
+   <input name="button2" type="button" class="BOTOES" onClick='document.logout.submit()' value="<?=$MSG_LANG["logoff"]?>"><input name="button3" type="button" onClick="window.open('analyze.php?whocolor=<?=$playersColor?>&game=<?=$game_id?>', '_blank','toolbar=no,status=no,menubar=no,scrollbars=yes,width=850,height=600')" value="<?=$MSG_LANG["analyze"]?>"><input name="button5" border-width= "5"  type="button" class="BOTOES" onClick="window.location='MyGames.php'" value="<?=$MSG_LANG["mygames"]?>">
 <br>
 <?
 $m = ("SELECT acknowledged,to_id FROM cwc_communication WHERE (to_id = ".$_SESSION['player_id']." OR to_id = NULL) AND acknowledged = 0 and listed <> 1");
@@ -655,7 +701,7 @@ echo ("<input type=\"image\" src=\"images/icons/emailenvelope.jpg\" onClick=\"wi
                 mysql_query($tmpQuery);
 
                 /* setup new board */
-                $_SESSION['game_id'] = $tmpGame['game_id'];
+                $game_id = $tmpGame['game_id'];
                 createNewGame($tmpGame['game_id']);
                 saveGame();
 
@@ -749,7 +795,7 @@ echo ("<input type=\"image\" src=\"images/icons/emailenvelope.jpg\" onClick=\"wi
 
         <td bgcolor="beige" align=center><b><font color="black">Game #
 <?php
- echo $_SESSION['game_id'];
+ echo $game_id;
 
   ?></font></b>
     </td>
@@ -803,7 +849,7 @@ echo ("<input type=\"image\" src=\"images/icons/emailenvelope.jpg\" onClick=\"wi
       }
    ?>
     </th></tr>
-    <tr><td bgcolor=white align=left><?= writeNote($_SESSION['game_id'])?></td></tr>
+    <tr><td bgcolor=white align=left><?= writeNote($game_id)?></td></tr>
     <tr><td align=center bgcolor=white><input type=text name=note_msg size=30 onClick="stopTimer=1"><input type=submit value="<?=$MSG_LANG["write"]?>"></td></tr>
       </table>
       </form>
@@ -826,7 +872,7 @@ echo ("<input type=\"image\" src=\"images/icons/emailenvelope.jpg\" onClick=\"wi
     $black = StartPieces();
     $white = StartPieces();
 
-    $p = mysql_query("SELECT * FROM {$db_prefix}pieces WHERE game_id = ".$_SESSION['game_id']." order by color,piece");
+    $p = mysql_query("SELECT * FROM {$db_prefix}pieces WHERE game_id = ".$game_id." order by color,piece");
     $wmaterial = 0;
       $bmaterial = 0;
       while ($row = mysql_fetch_array($p)){
@@ -1089,5 +1135,5 @@ if (isset($COMPRESSION) && $COMPRESSION && isset($ob_mode) && $ob_mode)
 {
          PMA_outBufferPost($ob_mode);
 }
-}//End of "if board is not disabled" - just FYI and reference -
+
 ?>

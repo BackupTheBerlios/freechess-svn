@@ -1,12 +1,12 @@
 <?php
 ##############################################################################################
 #                                                                                            #
-#                                join.php                                                
+#                                join.php
 # *                            -------------------                                           #
-# *   begin                : Wednesday, January 25, 2005                                     
+# *   begin                : Wednesday, January 25, 2005
 # *   copyright            : (C) 2004-2005  CompWebChess Development Team                    #
 # *   support              : http://developer.berlios.de/projects/chess/                              #
-# *   VERSION:             : $Id$                                           
+# *   VERSION:             : $Id$
 #                                                                                            #
 ##############################################################################################
 #    This program is free software; you can redistribute it and/or modify it under the       #
@@ -34,24 +34,24 @@
     require_once ( 'chessconstants.php');
     require_once ( 'newgame.php');
     require_once('chessdb.php');
-    
-    
+
+
     /* allow WebChess to be run on PHP systems < 4.1.0, using old http vars */
     fixOldPHPVersions();
 
     /* if this page is accessed directly (ie: without going through login), */
     /* player is logged off by default */
-    if (!isset($_SESSION['playerID']))
+    if (!isset($_SESSION['player_id']))
         $_SESSION['playerID'] = -1;
-    
+
     /* connect to database */
     require_once( 'connectdb.php');
     $id=$_SESSION['playerID'];
-	$thankyou_message = "<p>Thankyou. Your challenge has been sent. </p>";
-	/* check session status */
-	require_once('sessioncheck.php');
+    $thankyou_message = "<p>Thankyou. Your challenge has been sent. </p>";
+    /* check session status */
+    require_once('sessioncheck.php');
 
-	/* Language selection */
+    /* Language selection */
     require_once("languages/".$_SESSION['pref_language']."/strings.inc.php");
 ?>
 
@@ -117,17 +117,17 @@ EOD;
         $tmpGames = mysql_query($tmpQuery);
 
         if (mysql_num_rows($tmpGames) == 0)
-		{
+        {
                 $content.=("<tr><td colspan='3'>You are not currently invited to any games</td></tr>\n");
-		$nogames=true;
-		}
+        $nogames=true;
+        }
         else
                 while($tmpGame = mysql_fetch_array($tmpGames, MYSQL_ASSOC))
                 {
-			$nogames=false;
+            $nogames=false;
                         /* Opponent */
                         $content.=("<tr><td>");
-			$content.=$tmpGame['gameID'];
+            $content.=$tmpGame['gameID'];
                         $content.=("</td><td>");
                         /* get opponent's nick */
                         if ($tmpGame['whitePlayer'] == $_SESSION['playerID'])
@@ -135,7 +135,7 @@ EOD;
                         else
                                 $tmpOpponent = mysql_query("SELECT nick FROM players WHERE playerID = ".$tmpGame['whitePlayer']);
                         $opponent = mysql_result($tmpOpponent,0);
-			$content.=($opponent);
+            $content.=($opponent);
 
                         /* Your Color */
                         $content.=("</td><td>");
@@ -216,20 +216,20 @@ $game['oFirst']="Open";
 $game['oLast']="";
 
 if ($game['wNick'])
-	{
-#		$game['oNick']=$game['wNick'];
-#		$game['oFirst']=$game['wFirst'];
-#		$game['oLast']=$game['wLast'];
-		$game['myColor']="white";
-		
-	}
-	else
-	{
-#		$game['oNick']=$game['bNick'];
-#		$game['oFirst']=$game['bFirst'];
-#		$game['oLast']=$game['bLast'];
-		$game['myColor']="black";
-	}
+    {
+#       $game['oNick']=$game['wNick'];
+#       $game['oFirst']=$game['wFirst'];
+#       $game['oLast']=$game['wLast'];
+        $game['myColor']="white";
+
+    }
+    else
+    {
+#       $game['oNick']=$game['bNick'];
+#       $game['oFirst']=$game['bFirst'];
+#       $game['oLast']=$game['bLast'];
+        $game['myColor']="black";
+    }
 }
 
 if($game['oNick']!="Open")
@@ -274,13 +274,13 @@ $prating="&nbsp;";
 $content.=<<<EOD
 <TR align=center>
 <TD align=left valign=middle width=50>
-	<a href="javascript:CancelGame({$game['gameID']})">&gt;&gt;&gt;Cancel&lt;&lt;&lt;</a>
+    <a href="javascript:CancelGame({$game['gameID']})">&gt;&gt;&gt;Cancel&lt;&lt;&lt;</a>
 </TD>
 <TD>
-	{$game['gameID']}
+    {$game['gameID']}
 </TD>
 <TD>
-	{$game['myColor']}
+    {$game['myColor']}
 </TD>
 EOD;
 if($game['oNick']=="Open")
@@ -291,23 +291,23 @@ else
 {
 $content.=<<<EOD
 <TD>
-	{$game['oFirst']} {$game['oLast']}
+    {$game['oFirst']} {$game['oLast']}
 </TD>
 <TD>
-	{$game['oNick']}
+    {$game['oNick']}
 </TD>
 <TD align=left>
-	{$rating}
+    {$rating}
 </TD>
 <TD align=left>
-	{$prating}
+    {$prating}
 </TD>
 EOD;
 }
 
 $content.=<<<EOD
 <TD>
-	{$game['dateCreated']}
+    {$game['dateCreated']}
 </TD>
 </TR>
 EOD;
@@ -344,21 +344,21 @@ else
 $ws=$game['wScore'];}
 
 if ($game['wNick'])
-	{
-		$game['oNick']=$game['wNick'];
-		$game['oFirst']=$game['wFirst'];
-		$game['oLast']=$game['wLast'];
-		$game['myColor']="black";
-		$game['oID']=$game['wID'];
-	}
-	else
-	{
-		$game['oNick']=$game['bNick'];
-		$game['oFirst']=$game['bFirst'];
-		$game['oLast']=$game['bLast'];
-		$game['myColor']="white";
-		$game['oID']=$game['bID'];
-	}
+    {
+        $game['oNick']=$game['wNick'];
+        $game['oFirst']=$game['wFirst'];
+        $game['oLast']=$game['wLast'];
+        $game['myColor']="black";
+        $game['oID']=$game['wID'];
+    }
+    else
+    {
+        $game['oNick']=$game['bNick'];
+        $game['oFirst']=$game['bFirst'];
+        $game['oLast']=$game['bLast'];
+        $game['myColor']="white";
+        $game['oID']=$game['bID'];
+    }
 
 $rt=GetPlayerStats($game['oID']);
 
@@ -392,28 +392,28 @@ $prating="No Games Against";
 $content.=<<<EOD
 <TR align=center>
 <TD align=left valign=middle width=50>
-	<a href="javascript:JoinGame({$game['gameID']})">&gt;&gt;&gt;Join&lt;&lt;&lt;</a>
+    <a href="javascript:JoinGame({$game['gameID']})">&gt;&gt;&gt;Join&lt;&lt;&lt;</a>
 </TD>
 <TD>
-	{$game['gameID']}
+    {$game['gameID']}
 </TD>
 <TD>
-	{$game['myColor']}
+    {$game['myColor']}
 </TD>
 <TD>
-	{$game['oFirst']} {$game['oLast']}
+    {$game['oFirst']} {$game['oLast']}
 </TD>
 <TD>
-	{$game['oNick']}
+    {$game['oNick']}
 </TD>
 <TD align=left>
-	{$rating}
+    {$rating}
 </TD>
 <TD align=left>
-	{$prating}
+    {$prating}
 </TD>
 <TD>
-	{$game['dateCreated']}
+    {$game['dateCreated']}
 </TD>
 </TR>
 EOD;
@@ -445,17 +445,17 @@ Your Color:&nbsp;<input type="radio" name="rdoColor" value="random" checked>Rand
 <br>
 Your Opponant:<select name="opponent">
 EOD;
-					$id=$_SESSION['playerID'];
-					$tmpQuery="SELECT playerID, nick FROM players WHERE playerID <> ".$id." ORDER BY nick ASC";
-					#echo $tmpQuery;
+                    $id=$_SESSION['playerID'];
+                    $tmpQuery="SELECT playerID, nick FROM players WHERE playerID <> ".$id." ORDER BY nick ASC";
+                    #echo $tmpQuery;
                                         $tmpPlayers = mysql_query($tmpQuery) or die("Sorry;: $tmpQuery");;
 
                                         while($tmpPlayer = mysql_fetch_array($tmpPlayers, MYSQL_ASSOC))
                                         {
-						if (!$tmpPlayer['nick'])
-						{ $tmpPlayer['nick']="ANYBODY";
-						  $tmpPlayer['playerID']=0;
-						}
+                        if (!$tmpPlayer['nick'])
+                        { $tmpPlayer['nick']="ANYBODY";
+                          $tmpPlayer['playerID']=0;
+                        }
                                                 $content.=("<option value='".$tmpPlayer['playerID']."'> ".$tmpPlayer['nick']."</option>\n");
                                         }
 
@@ -470,8 +470,8 @@ $content.=<<<EOD
 <FORM name=frmCancelGame method=post>
 <input type="hidden" name="CancelGameID">
 </FORM>
-	<br>
-	Or <a href="file:///C|/DOCUME%7E1/DENNIS%7E1/LOCALS%7E1/Temp/Rar$DI35.203/players.php?show=ALL">Choose From Our Player List</a>
+    <br>
+    Or <a href="file:///C|/DOCUME%7E1/DENNIS%7E1/LOCALS%7E1/Temp/Rar$DI35.203/players.php?show=ALL">Choose From Our Player List</a>
 EOD;
 
 themeindex($title,$content,"");

@@ -32,8 +32,6 @@
         if ($post != "")
             $_POST = $post;
 
-
-
         // if moving en-passant
         // (ie: if pawn moves diagonally without replacing anything)
         if ((($board[$_POST['from_row']][$_POST['from_col']] & COLOR_MASK) == PAWN) && ($_POST['to_col'] != $_POST['from_col']) && ($board[$_POST['to_row']][$_POST['to_col']] == 0)){

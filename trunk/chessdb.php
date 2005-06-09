@@ -110,7 +110,7 @@ include_once('tournaments_functions.php');//eventually we'll takle care of this 
 function tempoEsgotado($mycolor){
         global $db,$db_prefix, $MSG_LANG, $_SESSION, $isPromoting;
 
-        $p = mysql_query("SELECT * from history where game_id=".$_SESSION['game_id']." ORDER BY timeOfMove DESC limit 1");
+        $p = mysql_query("SELECT * from history where game_id='$game_id' ORDER BY timeOfMove DESC limit 1");
         $row = mysql_fetch_array($p);
 
         $cor = $row['cur_color'];
@@ -907,11 +907,11 @@ function getXPL($winnerRating, $loserRating, $PVG){
 
     }
 
-    function loadHistory()
+    function loadHistory($game_id)
     {
         global $history, $numMoves,$db,$db_prefix;
 
-        $allMoves = mysql_query("SELECT * FROM {$db_prefix}history WHERE game_id = ".$_SESSION['game_id']." ORDER BY time_of_move");
+        $allMoves = mysql_query("SELECT * FROM {$db_prefix}history WHERE game_id = '$game_id' ORDER BY time_of_move");
 
         $numMoves = -1;
         while ($thisMove = mysql_fetch_array($allMoves, MYSQL_ASSOC))
@@ -939,7 +939,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
 
         $history[$numMoves]['promotedTo'] = getPieceName($_POST['promotion']);
 
-        $tmpQuery = "UPDATE {$db_prefix}history SET time_of)move=NOW(), promoted_to = '".getPieceName($_POST['promotion'])."', is_in_check = ".$tmpIsInCheck." WHERE game_id = ".$_SESSION['game_id']." AND timeOfMove = '".$history[$numMoves]['timeOfMove']."'";
+        $tmpQuery = "UPDATE {$db_prefix}history SET time_of)move=NOW(), promoted_to = '".getPieceName($_POST['promotion'])."', is_in_check = ".$tmpIsInCheck." WHERE game_id = '$game_id' AND timeOfMove = '".$history[$numMoves]['timeOfMove']."'";
         mysql_query($tmpQuery);
 
         updateTimestamp();
@@ -1056,13 +1056,13 @@ function getXPL($winnerRating, $loserRating, $PVG){
 
         if ($board[$_POST['to_row']][$_POST['to_col']] == 0)
         {
-            $tmpQuery = "INSERT INTO {$db_prefix}history (time_of_move, game_id, cur_piece, cur_color, from_row, from_col, to_row, to_col, replaced, promoted_to, is_in_check) VALUES (Now(), ".$_SESSION['game_id'].", '".getPieceName($board[$_POST['from_row']][$_POST['from_col']])."', '$cur_color', ".$_POST['from_row'].", ".$_POST['from_col'].", ".$_POST['to_row'].", ".$_POST['to_col'].", null, null, ".$history[$numMoves]['is_in_check'].")";
+            $tmpQuery = "INSERT INTO {$db_prefix}history (time_of_move, game_id, cur_piece, cur_color, from_row, from_col, to_row, to_col, replaced, promoted_to, is_in_check) VALUES (Now(), '$game_id', '".getPieceName($board[$_POST['from_row']][$_POST['from_col']])."', '$cur_color', ".$_POST['from_row'].", ".$_POST['from_col'].", ".$_POST['to_row'].", ".$_POST['to_col'].", null, null, ".$history[$numMoves]['is_in_check'].")";
             $history[$numMoves]['replaced'] = null;
             $tmpReplaced = "";
         }
         else
         {
-            $tmpQuery = "INSERT INTO {$db_prefix}history (time_of_move, game_id, cur_piece, cur_color, from_row, from_col, to_row, to_col, replaced, promoted_to, is_in_check) VALUES (Now(), ".$_SESSION['game_id'].", '".getPieceName($board[$_POST['from_row']][$_POST['from_col']])."', '$cur_color', ".$_POST['from_row'].", ".$_POST['from_col'].", ".$_POST['to_row'].", ".$_POST['to_col'].", '".getPieceName($board[$_POST['to_row']][$_POST['to_col']])."', null, ".$history[$numMoves]['is_in_check'].")";
+            $tmpQuery = "INSERT INTO {$db_prefix}history (time_of_move, game_id, cur_piece, cur_color, from_row, from_col, to_row, to_col, replaced, promoted_to, is_in_check) VALUES (Now(), '$game_id', '".getPieceName($board[$_POST['from_row']][$_POST['from_col']])."', '$cur_color', ".$_POST['from_row'].", ".$_POST['from_col'].", ".$_POST['to_row'].", ".$_POST['to_col'].", '".getPieceName($board[$_POST['to_row']][$_POST['to_col']])."', null, ".$history[$numMoves]['is_in_check'].")";
 
             $history[$numMoves]['replaced'] = getPieceName($board[$_POST['to_row']][$_POST['to_col']]);
             $tmpReplaced = $history[$numMoves]['replaced'];
@@ -1113,7 +1113,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         }
     }
 
-    function loadGame()
+    function loadGame($game_id)
     {
         global $db,$db_prefix, $board, $playersColor, $MSG_LANG,$db_prefix,$db;
 
@@ -1127,7 +1127,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
             }
         }
 
-        $pieces = mysql_query("SELECT * FROM {$db_prefix}pieces WHERE game_id = ".$_SESSION['game_id']);
+        $pieces = mysql_query("SELECT * FROM {$db_prefix}pieces WHERE game_id = '$game_id'");
         /* setup board */
         while ($thisPiece = mysql_fetch_array($pieces, MYSQL_ASSOC))
         {
@@ -1135,7 +1135,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         }
 
         /* get current player's color */
-        $tmpQuery = "SELECT white_player, black_player FROM {$db_prefix}games WHERE game_id = ".$_SESSION['game_id'];
+        $tmpQuery = "SELECT white_player, black_player FROM {$db_prefix}games WHERE game_id = '$game_id'";
         $tmpTurns = mysql_query($tmpQuery);
         $tmpTurn = mysql_fetch_array($tmpTurns, MYSQL_ASSOC);
 
@@ -1181,7 +1181,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
                     }
 
                     $tmpPiece = getPieceName($board[$i][$j]);
-                    mysql_query("INSERT INTO {$db_prefix}pieces (game_id, color, piece, row, col) VALUES (".$_SESSION['game_id'].", '$tmpColor', '$tmpPiece', $i, $j)");
+                    mysql_query("INSERT INTO {$db_prefix}pieces (game_id, color, piece, row, col) VALUES ('$game_id', '$tmpColor', '$tmpPiece', $i, $j)");
                 }
             }
         }
@@ -1190,7 +1190,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         updateTimestamp();
 
         //Update players time
-        $p = mysql_query("SELECT * from {$db_prefix}history where cur_color<>'$playersColor' AND game_id=".$_SESSION['game_id']." ORDER BY time_of_move DESC limit 1");
+        $p = mysql_query("SELECT * from {$db_prefix}history where cur_color<>'$playersColor' AND game_id='$game_id' ORDER BY time_of_move DESC limit 1");
         $row = mysql_fetch_array($p);
 
         $cor = $row['cur_color'];
@@ -1257,7 +1257,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
 
     function processMessages()
     {
-        global $db,$db_prefix, $MSG_LANG, $CFG_MIN_ROUNDS, $isUndoRequested, $isDrawRequested, $isUndoing, $isGameOver, $isCheckMate, $playersColor, $statusMessage, $CFG_USEEMAILNOTIFICATION, $flagFall;
+        global $game_id,$db,$db_prefix, $MSG_LANG, $CFG_MIN_ROUNDS, $isUndoRequested, $isDrawRequested, $isUndoing, $isGameOver, $isCheckMate, $playersColor, $statusMessage, $CFG_USEEMAILNOTIFICATION, $flagFall;
 
         $isUndoRequested = false;
         $isGameOver = false;
@@ -1286,7 +1286,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
                 $isUndoing = true;
             else
             {
-                $tmpQuery = "INSERT INTO {$db_prefix}messages (game_id, msgType, msgStatus, destination) VALUES (".$_SESSION['game_id'].", 'undo', 'request', '".$opponentColor."')";
+                $tmpQuery = "INSERT INTO {$db_prefix}messages (game_id, msgType, msgStatus, destination) VALUES ('$game_id', 'undo', 'request', '".$opponentColor."')";
                 mysql_query($tmpQuery);
             }
 
@@ -1311,7 +1311,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
             }
             else
             {
-                $tmpQuery = "INSERT INTO {$db_prefix}messages (game_id, msgType, msgStatus, destination) VALUES (".$_SESSION['game_id'].", 'draw', 'request', '".$opponentColor."')";
+                $tmpQuery = "INSERT INTO {$db_prefix}messages (game_id, msgType, msgStatus, destination) VALUES ('$game_id', 'draw', 'request', '".$opponentColor."')";
                 mysql_query($tmpQuery);
             }
 
@@ -1332,7 +1332,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
                 else
                     $tmpStatus = "denied";
 
-                $tmpQuery = "UPDATE {$db_prefix}messages SET msgStatus = '".$tmpStatus."', destination = '".$opponentColor."' WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'undo' AND msgStatus = 'request' AND destination = '".$playersColor."'";
+                $tmpQuery = "UPDATE {$db_prefix}messages SET msgStatus = '".$tmpStatus."', destination = '".$opponentColor."' WHERE game_id = '$game_id' AND msgType = 'undo' AND msgStatus = 'request' AND destination = '".$playersColor."'";
                 mysql_query($tmpQuery);
             }
         }
@@ -1351,7 +1351,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
                 else
                     $tmpStatus = "denied";
 
-                $tmpQuery = "UPDATE {$db_prefix}messages SET msgStatus = '".$tmpStatus."', destination = '".$opponentColor."' WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'draw' AND msgStatus = 'request' AND destination = '".$playersColor."'";
+                $tmpQuery = "UPDATE {$db_prefix}messages SET msgStatus = '".$tmpStatus."', destination = '".$opponentColor."' WHERE game_id = '$game_id' AND msgType = 'draw' AND msgStatus = 'request' AND destination = '".$playersColor."'";
                 mysql_query($tmpQuery);
             }
         }
@@ -1400,7 +1400,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         /* ******************************************* */
         /* process queued messages (ie: from database) */
         /* ******************************************* */
-        $tmpQuery = "SELECT * FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND destination = '".$playersColor."'";
+        $tmpQuery = "SELECT * FROM {$db_prefix}messages WHERE game_id = '$game_id' AND destination = '".$playersColor."'";
         $tmpMessages = mysql_query($tmpQuery);
 
         while($tmpMessage = mysql_fetch_array($tmpMessages, MYSQL_ASSOC))
@@ -1414,13 +1414,13 @@ function getXPL($winnerRating, $loserRating, $PVG){
                             $isUndoRequested = true;
                             break;
                         case 'approved':
-                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'undo' AND msgStatus = 'approved' AND destination = '".$playersColor."'";
+                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = '$game_id' AND msgType = 'undo' AND msgStatus = 'approved' AND destination = '".$playersColor."'";
                             mysql_query($tmpQuery);
                             $statusMessage .= $MSG_LANG["undoapproved"].".<br>\n";
                             break;
                         case 'denied':
                             $isUndoing = false;
-                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'undo' AND msgStatus = 'denied' AND destination = '".$playersColor."'";
+                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = '$game_id' AND msgType = 'undo' AND msgStatus = 'denied' AND destination = '".$playersColor."'";
                             mysql_query($tmpQuery);
                             $statusMessage .= $MSG_LANG["undodenied"].".<br>\n";
                             break;
@@ -1434,12 +1434,12 @@ function getXPL($winnerRating, $loserRating, $PVG){
                             $isDrawRequested = true;
                             break;
                         case 'approved':
-                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'draw' AND msgStatus = 'approved' AND destination = '".$playersColor."'";
+                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = '$game_id' AND msgType = 'draw' AND msgStatus = 'approved' AND destination = '".$playersColor."'";
                             mysql_query($tmpQuery);
                             $statusMessage .= $MSG_LANG["drawapproved"].".<br>\n";
                             break;
                         case 'denied':
-                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND msgType = 'draw' AND msgStatus = 'denied' AND destination = '".$playersColor."'";
+                            $tmpQuery = "DELETE FROM {$db_prefix}messages WHERE game_id = '$game_id' AND msgType = 'draw' AND msgStatus = 'denied' AND destination = '".$playersColor."'";
                             mysql_query($tmpQuery);
                             $statusMessage .= $MSG_LANG["drawdenied"].".<br>\n";
                             break;
@@ -1449,7 +1449,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         }
 
         /* requests pending */
-        $tmpQuery = "SELECT * FROM {$db_prefix}messages WHERE game_id = ".$_SESSION['game_id']." AND msgStatus = 'request' AND destination = '".$opponentColor."'";
+        $tmpQuery = "SELECT * FROM {$db_prefix}messages WHERE game_id = '$game_id' AND msgStatus = 'request' AND destination = '".$opponentColor."'";
         $tmpMessages = mysql_query($tmpQuery);
 
         while($tmpMessage = mysql_fetch_array($tmpMessages, MYSQL_ASSOC))
@@ -1487,7 +1487,7 @@ function getXPL($winnerRating, $loserRating, $PVG){
         $getbwO["white"] = $MSG_LANG["black"];
 
 
-        $tmpQuery = "SELECT status, message_from FROM {$db_prefix}games WHERE game_id = ".$_SESSION['game_id'];
+        $tmpQuery = "SELECT status, message_from FROM {$db_prefix}games WHERE game_id = '$game_id'";
         $tmpMessages = mysql_query($tmpQuery);
         $tmpMessage = mysql_fetch_array($tmpMessages, MYSQL_ASSOC);
 

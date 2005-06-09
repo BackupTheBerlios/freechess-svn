@@ -6,7 +6,7 @@
 # *   begin                : Wednesday, January 25, 2005
 # *   copyright            : (C) 2004-2005  CompWebChess Development Team                    #
 # *   support              : http://developer.berlios.de/projects/chess/                              #
-# *   VERSION:             : $Id: challenge.php,v 1.3 2005/03/10 02:25:22 trukfixer Exp $
+# *   VERSION:             : $Id:$
 #                                                                                            #
 ##############################################################################################
 #    This program is free software; you can redistribute it and/or modify it under the       #
@@ -127,7 +127,7 @@ $MSG_LANG_CHALLENGE['redirect'] = "<br>Your Browser will redirect you to the mai
                     $white = $_POST['opponent'];
                     $black = $_SESSION['player_id'];
                 }
-
+                //TODO - fix this crap pay attention to the post values- set a var for thematic and if not set in post set it to a ddefault
                 $tmpQuery .= "'".$_POST['time_limit']."', $white, $black, 'playerInvited', '".$tmpColor."', NOW(), NOW(),'".$_POST['rated']."','".$_POST['thematic']."')";
                 mysql_query($tmpQuery);
 
@@ -278,8 +278,8 @@ $smarty->assign('lang_choose_player',$MSG_LANG['chooseplayertojoin']);
 
                 $player_list = array();
                 $player_ids = array();
-                $sql = $db->Prepare("SELECT player_id, username FROM {$db_prefix}players WHERE last_update >= DATE_SUB(now(),interval 14 day) and player_id != ? AND active ='1' ORDER BY username ASC");
-                $query = $db->Execute($sql,array($player_id));
+                $sql = $db->Prepare("SELECT player_id, username FROM {$db_prefix}players WHERE last_update >= DATE_SUB(now(),interval 90 day) and player_id != ? AND active ='1' ORDER BY username ASC");
+                $query = $db->Execute($sql,array($_SESSION['player_id']));
                 db_op_result($query,__LINE__,__FILE__);
                 while(!$query->EOF)
                 {

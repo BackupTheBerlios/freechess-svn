@@ -173,7 +173,7 @@ function writeNote($game_id)
    }
 
 
-    function drawboard()
+function drawboard()
 {
 global $board, $playersColor, $numMoves, $MSG_LANG, $confirm_move,$history,$db,$db_prefix;
 //OK for this shit here, let's do it a little more elegantly-
