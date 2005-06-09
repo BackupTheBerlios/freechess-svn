@@ -1,0 +1,32 @@
+/* Hides from IE5-mac \*/
+* html .buggybox {height: 1%;}
+/* End hide from IE5-mac */ 
+/* Hides from IE5-mac \*/
+* html .buggybox {width: 1%;}
+/* End hide from IE5-mac */ 
+TABLE   {
+		
+		border : 1px solid black;
+		font-size: 11px;
+		font-family: verdana;
+		background: url(square-light.gif);
+	}
+
+TD      {
+		background: url(graphpaper.jpg);
+		text-align: center;
+	}
+
+.BOTOES {
+		width:111;
+                height:22;
+		background: url(grafic_wood.gif);
+		color: #FFFFFF;
+		font-size:8.5pt;
+border : 0px solid white;
+		font-family: verdana;
+	}
+
+BODY	{
+		background: url(wooden.jpg);
+	}

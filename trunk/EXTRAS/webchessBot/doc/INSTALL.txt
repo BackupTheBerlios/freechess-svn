@@ -1,0 +1,64 @@
+
+
+
+ Welcome to WebChess Bot.
+
+ - We developed this engine to run under linux.
+ - You can try to run it under windows. Should work too.
+
+
+
+ Requeriments:
+ 
+ - Under linux you need the CGI version of PHP.
+ - At windows you should need the php.exe
+
+
+
+ How it works:
+
+ - There are one script located at bin directory. This script will run as a daemon and will verify if the computer needs to play. If so, it will call the engine and do the moves.
+
+
+
+ Installation:
+
+ 1. First, you need to add the chess-bot players in the database. Actualy I have 3 players, but you can add more with different PLY (engine_flag):
+
+ Open a mysql console:
+
+ # mysql -u root -p 
+ (type root password)
+
+ mysql> use webchess; (or your database name)
+
+ mysql> 
+ INSERT INTO players (password, firstName,nick,engine,engine_flag) VALUES ('password!','Harpia', 'harpia', '1', '4');
+ INSERT INTO players (password, firstName,nick,engine,engine_flag) VALUES ('password!','Cerberus', 'cerberus', '1', '5');
+ INSERT INTO players (password, firstName,nick,engine,engine_flag) VALUES ('password!','Medusa', 'medusa', '1', '7');
+
+
+ 2. Second: you need to edit bin/play.php and make sure that this file has +x permission.
+    You neet to change the path of PHP: At the header of this file you will see:
+	#!/usr/bin/php4 -q (Change to the correct path of your php cgi)
+    At windows it wont work. You need to call "php.exe play.php"
+    You need to change the $bot_path, $webchess_path and $engine_name.
+    These paths are the engine path and the webchess php files path.
+		
+ 3. Edit the paths in chessdaemon.sh and make sure that this file has +x permission
+
+ 4. At linux you can run the engine jut typing: chessdaemon.sh&
+    At windows only execute: /path_to_php/php.exe /path_to_engine/bin/play.php
+
+ Hint:
+ - You can also put the webchess bot player in other computer. You only need to place another copy of webchess in the new computer and modify the mysql server ip.
+ - If anything goes wrong, you can see the logs in the path you specified in chessdaemon.sh
+
+ 
+ WARNING:
+
+ - Bots with high PLY (6 or more) can Use a lot of CPU time ! If you are planing to have a lot of users. You should need a dedicated server.
+
+
+
+ For bugs, missing steps or confused: rayel@comp.pucpcaldas.br

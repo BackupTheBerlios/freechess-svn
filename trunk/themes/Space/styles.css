@@ -1,0 +1,26 @@
+TABLE   {
+		width: 100%;
+		border : 1px solid black;
+		font-size: 11px;
+		font-family: verdana;
+		background: #DDDDDD;
+	}
+
+TD      {
+		text-align: center;
+		background: white;
+	}
+
+.BOTOES {
+		width:111;
+                height:22;
+		color: #FFFFFF;
+		font-size:8.5pt;
+		border : 0px solid white;
+		font-family: verdana;
+		background: url(button.gif);
+	}
+
+BODY	{
+		background: url(background.gif);
+	}

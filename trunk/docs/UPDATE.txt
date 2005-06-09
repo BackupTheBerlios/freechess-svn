@@ -1,0 +1,141 @@
+$Id$
+OBSOLETE FILE- Version 1.3-pre-alpha will be completely incompatible with older versions, it will not be backward compatible.
+An Upgrade may be possible with *EXTENSIVE* editing of the sql database currently running.
+
+ If you are upgrading CompWebChess from an older version,
+ you need to make some changes in the mysql tables.
+ If you have PhpMyAdmin, you can copy/paste the script directly.
+ If you have a linux prompt follow these steps:
+
+ 1. In the linux shell type:
+    mysql -u root -p
+
+ 2. Type mysql root password
+
+ 3. At the MySQL prompt type: (change "webchess_database" to your webchess database name)
+    use webchess_database;
+
+ 4. Copy/Paste the scripts bellow:
+
+
+ [ Version 1.2.0-dev2 or older]:
+
+ ALTER TABLE `tournaments` ADD `big` BIGINT DEFAULT '0' NOT NULL ,
+ ADD `winner` BIGINT DEFAULT '0' NOT NULL ,
+ ADD `display` VARCHAR( 10 ) NOT NULL ;
+ ALTER TABLE `tournaments` ADD `players` TINYINT( 2 ) NOT NULL ;
+ ALTER TABLE `players` CHANGE `engine` `engine` ENUM( '0', '1', '2' ) DEFAULT '0' NOT NULL ;
+ ALTER TABLE `games` CHANGE `gameID` `gameID` BIGINT( 20 ) NOT NULL AUTO_INCREMENT;
+ ALTER TABLE `history` CHANGE `gameID` `gameID` BIGINT( 20 ) DEFAULT '0' NOT NULL;
+ ALTER TABLE `chat` CHANGE `gameID` `gameID` BIGINT( 20 ) DEFAULT '0' NOT NULL;
+ ALTER TABLE `messages` CHANGE `gameID` `gameID` BIGINT( 20 ) DEFAULT '0' NOT NULL;
+ ALTER TABLE `pieces` CHANGE `gameID` `gameID` BIGINT( 20 ) DEFAULT '0' NOT NULL;
+ ALTER TABLE `testchat` CHANGE `gameID` `gameID` BIGINT( 20 ) DEFAULT '0' NOT NULL;
+
+
+
+
+ [ Version 1.1.0 or older ]:
+
+ CREATE TABLE `tournaments` (
+  `id` bigint(10) NOT NULL auto_increment,
+  `time` int(11) NOT NULL default '0',
+  `creator` bigint(10) NOT NULL default '0',
+  `min_rating` int(11) NOT NULL default '0',
+  `max_rating` int(11) NOT NULL default '0',
+  `text` text NOT NULL,
+  `name` varchar(80) NOT NULL default '',
+  `players` tinyint(2) NOT NULL default '0',
+  `player1` int(11) NOT NULL default '0',
+  `player2` int(11) NOT NULL default '0',
+  `player3` int(11) NOT NULL default '0',
+  `player4` int(11) NOT NULL default '0',
+  `official` tinytext NOT NULL,
+  `big` bigint(10) NOT NULL default '0',
+  `winner` bigint(10) NOT NULL default '0',
+  `display` varchar(10) NOT NULL default '',
+  PRIMARY KEY  (`id`)
+ ) TYPE=MyISAM ;
+
+
+ ALTER TABLE `games` ADD `tournament` BIGINT( 10 ) NOT NULL;
+
+
+ [ version 1.0.8 or older ]:
+
+
+ ALTER TABLE `team` ADD `points` INT DEFAULT '0' NOT NULL ;
+
+ CREATE TABLE `chat_online` (
+   `playerID` bigint(10) NOT NULL default '0',
+   `time` int(11) NOT NULL default '0'
+ ) TYPE=MyISAM;
+
+
+ CREATE TABLE `testchat` (
+   `chatID` int(11) NOT NULL auto_increment,
+   `fromID` int(11) NOT NULL default '0',
+   `msg` text NOT NULL,
+   `gameID` int(11) NOT NULL default '0',
+   `hora` timestamp(14) NOT NULL,
+   PRIMARY KEY  (`chatID`)
+ ) TYPE=MyISAM;
+
+
+ CREATE TABLE `medals` (
+ `idMedal` INT NOT NULL AUTO_INCREMENT ,
+ `playerID` INT NOT NULL ,
+ `date` DATE NOT NULL ,
+ `medal` VARCHAR( 15 ) NOT NULL ,
+ PRIMARY KEY ( `idMedal` )
+ );
+
+  ALTER TABLE `games` ADD `flagFall` ENUM( "0", "1" ) DEFAULT '0' NOT NULL ;
+
+  ALTER TABLE `games` ADD `timelimit` INT DEFAULT '0' NOT NULL;
+
+  ALTER TABLE `players` ADD `avatar` MEDIUMBLOB;
+
+  ALTER TABLE `players` ADD `validation` VARCHAR( 16 ) NOT NULL ;
+
+  CREATE TABLE `news` (
+  `idNews` int(11) NOT NULL auto_increment,
+  `title` varchar(255) NOT NULL default '',
+  `date` date NOT NULL default '0000-00-00',
+  `description` text NOT NULL,
+  `language` varchar(50) NOT NULL default '',
+  PRIMARY KEY  (`idNews`)
+  ) TYPE=MyISAM;
+
+  CREATE TABLE `team` (
+  `teamID` int(11) NOT NULL auto_increment,
+  `name` varchar(50) NOT NULL default '',
+  `fk_creator` int(11) NOT NULL default '0',
+  `created` int(11) NOT NULL default '0',
+  `description` varchar(255),
+  PRIMARY KEY  (`teamID`)
+  ) TYPE=MyISAM ;
+
+  CREATE TABLE `team_members` (
+  `fk_player` int(11) NOT NULL default '0',
+  `fk_team` int(11) NOT NULL default '0',
+  `date` int(11) NOT NULL default '0',
+  `init_rating` int(11) NOT NULL default '0',
+  `level` int(11) NOT NULL default '0',
+  PRIMARY KEY  (`fk_player`,`fk_team`)
+  ) TYPE=MyISAM;
+
+
+
+ [ Version 1.0.6 or older ]:
+
+ ALTER TABLE `games` ADD `gameok` ENUM( "0", "1" ) DEFAULT '1' NOT NULL ;
+ ALTER TABLE `games` ADD `timeBlack` INT( 11 ) DEFAULT '0' NOT NULL , ADD `timeWhite` INT( 11 ) DEFAULT '0' NOT NULL ;
+
+
+
+ [ Version 1.0.5 or older ]:
+
+ ALTER TABLE `games` ADD `PVWhite` INT DEFAULT '-1' NOT NULL;
+ ALTER TABLE `games` ADD `PVBlack` INT DEFAULT '-1' NOT NULL;
+

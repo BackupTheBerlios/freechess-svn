@@ -1,0 +1,22 @@
+.ptable {
+     border: 1px solid #003399;
+}
+.ptableeven {
+     background: #99CCFF;
+}
+.ptableodd {
+     background: #CCCCFF;
+}
+.tablerow {
+     background: #9933FF;
+}
+
+.BOTOES {
+        width:118;
+                height:22;
+        background: url(grafic_classic.jpg);
+        font-weight: bold;
+        color: #000000;
+        font-size:8.5pt;
+}
+

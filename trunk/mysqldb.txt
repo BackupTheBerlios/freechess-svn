@@ -1,0 +1,983 @@
+-- MySQL dump 9.11
+--
+-- Host: localhost    Database: logix_chess
+-- ------------------------------------------------------
+-- Server version	4.0.23_Debian-3-log
+
+--
+-- Table structure for table `chat`
+--
+
+CREATE TABLE chat (
+  chatID int(11) NOT NULL auto_increment,
+  fromID int(11) NOT NULL default '0',
+  msg text NOT NULL,
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  hora timestamp(14) NOT NULL,
+  PRIMARY KEY  (chatID),
+  KEY fromID (fromID),
+  KEY gameID (gameID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `chat`
+--
+
+INSERT INTO chat (chatID, fromID, msg, gameID, hora) VALUES (1,1,'COOLIES!',2,20050127181504);
+INSERT INTO chat (chatID, fromID, msg, gameID, hora) VALUES (2,1,'does this work?',3,20050127201904);
+INSERT INTO chat (chatID, fromID, msg, gameID, hora) VALUES (5,2,'hmmm.',2,20050127210534);
+
+--
+-- Table structure for table `comments`
+--
+
+CREATE TABLE comments (
+  id bigint(10) NOT NULL auto_increment,
+  playerID bigint(10) NOT NULL default '0',
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  timeOfMove varchar(50) NOT NULL default '',
+  text text NOT NULL,
+  time int(11) NOT NULL default '0',
+  quick enum('0','1') default '0',
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `comments`
+--
+
+
+--
+-- Table structure for table `communication`
+--
+
+CREATE TABLE communication (
+  commID smallint(6) NOT NULL auto_increment,
+  gameID smallint(6) default NULL,
+  fromID mediumint(9) default NULL,
+  toID mediumint(9) default NULL,
+  title varchar(255) default NULL,
+  text longtext,
+  postDate datetime NOT NULL default '0000-00-00 00:00:00',
+  expireDate datetime default '0000-00-00 00:00:00',
+  ack tinyint(4) default '0',
+  commType smallint(6) default '0',
+  commID2 smallint(6) NOT NULL default '0',
+  listed tinyint(4) default '0',
+  PRIMARY KEY  (commID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `communication`
+--
+
+
+--
+-- Table structure for table `cwc_game_settings`
+--
+
+CREATE TABLE cwc_game_settings (
+  id bigint(20) unsigned NOT NULL auto_increment,
+  name varchar(30) NOT NULL default '',
+  value varchar(60) NOT NULL default '',
+  PRIMARY KEY  (id),
+  KEY name (name)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_game_settings`
+--
+
+INSERT INTO cwc_game_settings (id, name, value) VALUES (1,'version','1.3-Pre-Alpha');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (2,'graph_line_color','red');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (3,'graph_fill_color','orange');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (4,'graph_fill2_color','#60A0F0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (5,'graph_line2_color','black');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (6,'graph_show','rating');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (7,'graph_show2','pv');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (8,'graph_limit','100');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (9,'session_timeout','1800');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (10,'expire_game','14');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (11,'game_prune_max','30');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (12,'game_warn_expire','10');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (13,'auto_reload_min','30');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (14,'auto_reload_allowed','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (15,'main_reload_allowed','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (16,'shoutbox_limit','1000');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (17,'shoutbox_display_limit','15');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (18,'shoutbox_popup_allowed','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (19,'shoutbox_refresh_min','10');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (20,'allow_email_notify','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (21,'require_valid_email','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (22,'admin_email','webmaster@domain.com');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (23,'allow_acl','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (24,'main_site','http://domain.com');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (25,'min_rounds_rating','4');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (26,'allow_force_resign','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (27,'enable_undo','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (28,'default_language','english');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (29,'allow_sound','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (30,'default_sound','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (31,'ranking_limit','20');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (32,'allow_png_download','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (33,'chess_bot_ranked','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (34,'allow_subranks','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (35,'allow_rank_limit','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (36,'rank_differential','1000');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (37,'allow_multiple','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (38,'confirm_move','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (39,'enable_compression','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (40,'max_avatar_kb','36');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (41,'max_avatar_height','120');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (42,'max_avatar_width','120');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (43,'default_avatar','default.jpg');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (44,'enable_trial_games','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (45,'trial_games_required','5');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (46,'allow_forums','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (47,'allow_thematics','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (48,'allow_speed_games','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (49,'rated_speed_games','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (50,'min_speed_limit','10');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (51,'max_speed_limit','120');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (52,'max_tournaments','4');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (53,'max_games','50');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (54,'allow_comments','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (55,'allow_kibbitz','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (56,'online_limit','100');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (57,'show_recent_topic','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (58,'max_topics_shown','5');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (59,'allow_tournament_create','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (60,'allow_large_tournament','0');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (61,'limit_tournament_rank','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (62,'tournament_rank_diff','750');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (63,'game_comment_max','30');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (64,'perf_logging','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (65,'paypal','bgustin@trukfixer.com');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (66,'allow_random_quotes','1');
+INSERT INTO cwc_game_settings (id, name, value) VALUES (67,'allow_random_quotes','1');
+
+--
+-- Table structure for table `cwc_games`
+--
+
+CREATE TABLE cwc_games (
+  game_id bigint(20) unsigned NOT NULL auto_increment,
+  whose_turn mediumint(8) unsigned NOT NULL default '0',
+  white_player mediumint(8) unsigned NOT NULL default '0',
+  black_player mediumint(8) unsigned NOT NULL default '0',
+  status enum('playerInvited','inviteDeclined','draw','playerResigned','checkMate') default NULL,
+  message_from enum('black','white') default NULL,
+  date_created datetime NOT NULL default '0000-00-00 00:00:00',
+  last_move datetime NOT NULL default '0000-00-00 00:00:00',
+  winner mediumint(8) default NULL,
+  experience_lost int(4) default NULL,
+  experience_won int(4) default NULL,
+  rated enum('0','1') NOT NULL default '1',
+  reason varchar(30) NOT NULL default '',
+  game_ok enum('0','1') NOT NULL default '1',
+  time_black int(11) NOT NULL default '0',
+  time_white int(11) NOT NULL default '0',
+  flag_fall enum('0','1') NOT NULL default '0',
+  time_limit int(11) NOT NULL default '0',
+  tournament bigint(10) NOT NULL default '0',
+  team_match enum('0','1') NOT NULL default '0',
+  team bigint(10) NOT NULL default '0',
+  post_game enum('0','1') NOT NULL default '0',
+  thematic int(6) NOT NULL default '0',
+  reminder enum('0','1') NOT NULL default '0',
+  PRIMARY KEY  (game_id),
+  KEY date (date_created),
+  KEY lastMove (last_move),
+  KEY gameMessage (status)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_games`
+--
+
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (5,0,3,1,'playerResigned','white','2005-01-29 00:15:42','2005-02-22 13:21:38',NULL,NULL,NULL,'0','','1',0,0,'1',0,0,'0',0,'0',0,'1');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (4,0,3,2,'playerResigned','white','2005-01-27 21:52:39','2005-02-11 13:57:20',NULL,NULL,NULL,'0','','1',14189,0,'1',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (7,0,2,1,'playerResigned','white','2005-02-01 12:52:27','2005-02-22 13:21:38',NULL,NULL,NULL,'0','','1',0,0,'1',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (8,0,9,10,'playerInvited','white','2005-03-08 20:20:00','2005-03-08 20:20:00',NULL,NULL,NULL,'0','','1',0,0,'0',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (9,0,9,10,'playerInvited','white','2005-03-08 20:21:45','2005-03-08 20:21:45',NULL,NULL,NULL,'0','','1',0,0,'0',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (10,0,10,9,'playerInvited','black','2005-03-08 20:23:17','2005-03-08 20:23:17',NULL,NULL,NULL,'0','','1',0,0,'0',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (11,0,9,10,'playerInvited','white','2005-03-08 20:28:39','2005-03-08 20:28:39',NULL,NULL,NULL,'0','','1',0,0,'0',0,0,'0',0,'0',0,'0');
+INSERT INTO cwc_games (game_id, whose_turn, white_player, black_player, status, message_from, date_created, last_move, winner, experience_lost, experience_won, rated, reason, game_ok, time_black, time_white, flag_fall, time_limit, tournament, team_match, team, post_game, thematic, reminder) VALUES (12,0,10,9,'playerInvited','white','2005-03-08 21:23:44','2005-03-08 21:23:44',NULL,NULL,NULL,'0','','1',0,0,'0',0,0,'0',0,'0',0,'0');
+
+--
+-- Table structure for table `cwc_logs`
+--
+
+CREATE TABLE cwc_logs (
+  player_id bigint(20) unsigned NOT NULL default '0',
+  type int(6) unsigned NOT NULL default '0',
+  time datetime NOT NULL default '0000-00-00 00:00:00',
+  log_data text NOT NULL,
+  KEY type (type)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_logs`
+--
+
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (0,22,'0000-00-00 00:00:00','');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (0,30,'0000-00-00 00:00:00','Login Error attempted login with username bugbuster and password 222222 from IP 65.7.198.57 at 2005-02-24 17:33:17.');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (0,10,'2005-03-03 20:28:41','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 114 (called from: /chess/mainmenu.php): Table &#39;logix_chess.games&#39; doesn&#39;t exist');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:30:10','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 237 (called from: /chess/mainmenu.php): Unknown column &#39;a.useryname&#39; in &#39;field list&#39;');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:30:34','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 237 (called from: /chess/mainmenu.php): Unknown column &#39;a.useryname&#39; in &#39;field list&#39;');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:31:20','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 503 (called from: /chess/mainmenu.php): You have an error in your SQL syntax.  Check the manual that corresponds to your MySQL server version for the right syntax to use ne');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:33:57','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 476 (called from: /chess/mainmenu.php): You have an error in your SQL syntax.  Check the manual that corresponds to your MySQL server version for the right syntax to use ne');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:34:33','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 476 (called from: /chess/mainmenu.php): You have an error in your SQL syntax.  Check the manual that corresponds to your MySQL server version for the right syntax to use ne');
+INSERT INTO cwc_logs (player_id, type, time, log_data) VALUES (9,10,'2005-03-03 21:37:01','A Database error occurred in /var/www/logic/public_html/chess/mainmenu.php on line 476 (called from: /chess/mainmenu.php): You have an error in your SQL syntax.  Check the manual that corresponds to your MySQL server version for the right syntax to use near &#39;Object&#39; at line 1');
+
+--
+-- Table structure for table `cwc_medals`
+--
+
+CREATE TABLE cwc_medals (
+  medal_id int(11) NOT NULL auto_increment,
+  player_id int(11) NOT NULL default '0',
+  date date NOT NULL default '0000-00-00',
+  medal varchar(15) NOT NULL default '',
+  team_id int(11) NOT NULL default '0',
+  PRIMARY KEY  (medal_id),
+  KEY playerID (player_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_medals`
+--
+
+
+--
+-- Table structure for table `cwc_player_preference`
+--
+
+CREATE TABLE cwc_player_preference (
+  player_id bigint(20) unsigned NOT NULL default '0',
+  pref_language varchar(30) NOT NULL default 'english',
+  auto_accept enum('1','0') NOT NULL default '0',
+  template_set varchar(15) NOT NULL default 'default',
+  theme_set varchar(15) NOT NULL default 'default',
+  style varchar(15) NOT NULL default 'default',
+  pref_sound enum('1','0') NOT NULL default '0',
+  pref_autoreload tinyint(3) unsigned NOT NULL default '15',
+  show_chat enum('1','0') NOT NULL default '1',
+  notify_move enum('E','M','N') NOT NULL default 'E',
+  notify_invite enum('E','M','N') NOT NULL default 'E',
+  notify_message enum('E','M','N') NOT NULL default 'E',
+  notify_timeout enum('E','M','N') NOT NULL default 'E',
+  notify_tournament enum('E','M','N') NOT NULL default 'E',
+  display_bot enum('1','0') NOT NULL default '1',
+  PRIMARY KEY  (player_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_player_preference`
+--
+
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (2,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (3,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (4,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (5,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (6,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (7,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (8,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (9,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+INSERT INTO cwc_player_preference (player_id, pref_language, auto_accept, template_set, theme_set, style, pref_sound, pref_autoreload, show_chat, notify_move, notify_invite, notify_message, notify_timeout, notify_tournament, display_bot) VALUES (10,'english','0','default','classic','standard','1',15,'1','E','E','E','E','E','1');
+
+--
+-- Table structure for table `cwc_player_stats`
+--
+
+CREATE TABLE cwc_player_stats (
+  player_id bigint(20) unsigned NOT NULL default '0',
+  points int(8) unsigned NOT NULL default '0',
+  rating int(4) unsigned NOT NULL default '0',
+  rating_max int(4) unsigned NOT NULL default '0',
+  rating_month int(4) unsigned NOT NULL default '0',
+  trials_left tinyint(2) unsigned NOT NULL default '5',
+  in_tournaments tinyint(2) unsigned NOT NULL default '0',
+  tour_finished int(6) unsigned NOT NULL default '0',
+  tour_wins int(8) unsigned NOT NULL default '0',
+  victories int(8) unsigned NOT NULL default '0',
+  defeats int(8) unsigned NOT NULL default '0',
+  draws int(8) unsigned NOT NULL default '0',
+  forfeits int(8) unsigned NOT NULL default '0',
+  by_forfeit int(8) unsigned NOT NULL default '0',
+  PRIMARY KEY  (player_id),
+  KEY rating (rating)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_player_stats`
+--
+
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (1,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (2,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (3,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (4,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (5,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (6,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (7,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (8,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (9,0,0,0,0,5,0,0,0,0,0,0,0,0);
+INSERT INTO cwc_player_stats (player_id, points, rating, rating_max, rating_month, trials_left, in_tournaments, tour_finished, tour_wins, victories, defeats, draws, forfeits, by_forfeit) VALUES (10,0,0,0,0,5,0,0,0,0,0,0,0,0);
+
+--
+-- Table structure for table `cwc_players`
+--
+
+CREATE TABLE cwc_players (
+  player_id bigint(20) unsigned NOT NULL auto_increment,
+  team_id mediumint(8) unsigned NOT NULL default '0',
+  password varchar(32) NOT NULL default '',
+  username varchar(25) NOT NULL default '',
+  email varchar(80) NOT NULL default '',
+  avatar varchar(40) NOT NULL default '',
+  active enum('1','0') NOT NULL default '0',
+  last_update datetime NOT NULL default '0000-00-00 00:00:00',
+  validation_code varchar(16) NOT NULL default '',
+  first_name varchar(60) NOT NULL default '',
+  last_name varchar(60) NOT NULL default '',
+  sex enum('M','F','U') NOT NULL default 'U',
+  birth_date date NOT NULL default '0000-00-00',
+  biography text NOT NULL,
+  city varchar(60) NOT NULL default '',
+  state varchar(60) NOT NULL default '',
+  country varchar(60) NOT NULL default '',
+  PRIMARY KEY  (player_id),
+  UNIQUE KEY username (username),
+  KEY last_update (active,last_update)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_players`
+--
+
+INSERT INTO cwc_players (player_id, team_id, password, username, email, avatar, active, last_update, validation_code, first_name, last_name, sex, birth_date, biography, city, state, country) VALUES (2,0,'6cee2033f74468edae63e3142e3ed403','newtest','bri@trukfixer.com','','0','2005-02-24 17:47:33','50c5b6090c10483d','private','private','U','0000-00-00','','NoWhere','FL','US');
+
+--
+-- Table structure for table `cwc_sessions`
+--
+
+CREATE TABLE cwc_sessions (
+  SESSKEY varchar(32) NOT NULL default '',
+  EXPIRY int(11) unsigned NOT NULL default '0',
+  EXPIREREF varchar(64) default NULL,
+  session_data text NOT NULL,
+  PRIMARY KEY  (SESSKEY)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_sessions`
+--
+
+INSERT INTO cwc_sessions (SESSKEY, EXPIRY, EXPIREREF, session_data) VALUES ('543c2b7c0dabb6e566d93d81c292e932',1110338312,'','xúmë¡jƒ Üü&˜$∂lÆÌz-ÙdV\'Q0*ŒHŸ∑Ø¢Ån»Aøœú1&\\•øeÿp∏›i∑≤ÜyFø9K¶ÏÒ<1I´ª37g\ZŒÑ…√~J¯Bè	\\S˜¬(	˘U”∏Bv‹5É˚Ö£Y’‚ß;J-çÉ◊êtL¯ï ¿2ı◊6™-’v‰#\\sNIáÎâø7ûÄ≠ﬂ^QüC÷3]¢“\0ÀuA·∂Úi\ZÖx[Q∞•	ı˜Ω–G°cç´øôCB‡4{q‘¨ÖÏuœ≠7Î%	Ja‰ßUΩég');
+
+--
+-- Table structure for table `cwc_team_invites`
+--
+
+CREATE TABLE cwc_team_invites (
+  team_id int(8) unsigned NOT NULL default '0',
+  name varchar(60) NOT NULL default '',
+  player_id int(11) unsigned NOT NULL default '0',
+  inviter int(11) unsigned NOT NULL default '0',
+  PRIMARY KEY  (player_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_team_invites`
+--
+
+
+--
+-- Table structure for table `cwc_team_players`
+--
+
+CREATE TABLE cwc_team_players (
+  team_id bigint(20) unsigned NOT NULL auto_increment,
+  player1 bigint(20) unsigned NOT NULL default '0',
+  player2 bigint(20) unsigned NOT NULL default '0',
+  player3 bigint(20) unsigned NOT NULL default '0',
+  player4 bigint(20) unsigned NOT NULL default '0',
+  sub bigint(20) unsigned NOT NULL default '0',
+  PRIMARY KEY  (team_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_team_players`
+--
+
+
+--
+-- Table structure for table `cwc_teams`
+--
+
+CREATE TABLE cwc_teams (
+  team_id int(11) NOT NULL auto_increment,
+  name varchar(50) NOT NULL default '',
+  leader int(11) NOT NULL default '0',
+  created int(11) NOT NULL default '0',
+  description varchar(255) NOT NULL default '',
+  points int(11) NOT NULL default '0',
+  wins int(11) NOT NULL default '0',
+  rating tinyint(4) unsigned NOT NULL default '0',
+  ranking tinyint(4) unsigned NOT NULL default '0',
+  PRIMARY KEY  (team_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_teams`
+--
+
+
+--
+-- Table structure for table `cwc_thematics`
+--
+
+CREATE TABLE cwc_thematics (
+  id mediumint(4) unsigned NOT NULL auto_increment,
+  key varchar(30) NOT NULL default '',
+  moves text NOT NULL,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `cwc_thematics`
+--
+
+
+--
+-- Table structure for table `forum_topics`
+--
+
+CREATE TABLE forum_topics (
+  topic_id int(11) NOT NULL auto_increment,
+  forum_id int(11) NOT NULL default '0',
+  userid int(11) NOT NULL default '0',
+  replyto int(11) NOT NULL default '0',
+  title varchar(125) NOT NULL default '',
+  text text NOT NULL,
+  time int(11) NOT NULL default '0',
+  hits int(11) NOT NULL default '0',
+  lastreply int(11) NOT NULL default '0',
+  gameid int(11) NOT NULL default '0',
+  PRIMARY KEY  (topic_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `forum_topics`
+--
+
+
+--
+-- Table structure for table `forums`
+--
+
+CREATE TABLE forums (
+  forum_id int(11) NOT NULL auto_increment,
+  forum_title varchar(170) NOT NULL default '',
+  forum_text varchar(255) NOT NULL default '',
+  chessforum tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (forum_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `forums`
+--
+
+
+--
+-- Table structure for table `game_positions`
+--
+
+CREATE TABLE game_positions (
+  id int(11) NOT NULL auto_increment,
+  position varchar(75) NOT NULL default '',
+  title text NOT NULL,
+  color enum('black','white') NOT NULL default 'black',
+  moves enum('1','2','3') NOT NULL default '1',
+  fromRow tinyint(1) NOT NULL default '0',
+  fromCol tinyint(1) NOT NULL default '0',
+  toRow tinyint(1) NOT NULL default '0',
+  toCol tinyint(1) NOT NULL default '0',
+  frage text NOT NULL,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `game_positions`
+--
+
+
+--
+-- Table structure for table `game_positions_results`
+--
+
+CREATE TABLE game_positions_results (
+  id int(11) NOT NULL auto_increment,
+  pos_id int(11) NOT NULL default '0',
+  epd varchar(255) NOT NULL default '',
+  epd2 varchar(255) NOT NULL default '',
+  epd3 varchar(255) NOT NULL default '',
+  zug varchar(25) NOT NULL default '',
+  text text NOT NULL,
+  PRIMARY KEY  (id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `game_positions_results`
+--
+
+
+--
+-- Table structure for table `group_members`
+--
+
+CREATE TABLE group_members (
+  playerID int(11) NOT NULL default '0',
+  group_id int(11) NOT NULL default '0',
+  joined int(11) NOT NULL default '0',
+  PRIMARY KEY  (playerID,group_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `group_members`
+--
+
+
+--
+-- Table structure for table `groups`
+--
+
+CREATE TABLE groups (
+  group_id int(11) NOT NULL auto_increment,
+  title varchar(40) NOT NULL default '',
+  text tinytext NOT NULL,
+  creator int(11) NOT NULL default '0',
+  time int(11) NOT NULL default '0',
+  ag tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (group_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `groups`
+--
+
+
+--
+-- Table structure for table `history`
+--
+
+CREATE TABLE history (
+  timeOfMove datetime NOT NULL default '0000-00-00 00:00:00',
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  curPiece enum('pawn','bishop','knight','rook','queen','king') NOT NULL default 'pawn',
+  curColor enum('white','black') NOT NULL default 'white',
+  fromRow smallint(6) NOT NULL default '0',
+  fromCol smallint(6) NOT NULL default '0',
+  toRow smallint(6) NOT NULL default '0',
+  toCol smallint(6) NOT NULL default '0',
+  replaced enum('pawn','bishop','knight','rook','queen','king') default NULL,
+  promotedTo enum('pawn','bishop','knight','rook','queen','king') default NULL,
+  isInCheck tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (timeOfMove,gameID),
+  KEY gameID (gameID),
+  KEY timeOfMove (timeOfMove)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `history`
+--
+
+INSERT INTO history (timeOfMove, gameID, curPiece, curColor, fromRow, fromCol, toRow, toCol, replaced, promotedTo, isInCheck) VALUES ('2005-01-28 04:17:47',4,'pawn','white',1,4,3,4,NULL,NULL,1);
+INSERT INTO history (timeOfMove, gameID, curPiece, curColor, fromRow, fromCol, toRow, toCol, replaced, promotedTo, isInCheck) VALUES ('2005-01-28 08:14:16',4,'pawn','black',6,4,4,4,NULL,NULL,1);
+
+--
+-- Table structure for table `match_players`
+--
+
+CREATE TABLE match_players (
+  match_id int(6) NOT NULL default '0',
+  playerID int(6) NOT NULL default '0',
+  teamID int(6) NOT NULL default '0',
+  KEY match_id (match_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `match_players`
+--
+
+
+--
+-- Table structure for table `matches`
+--
+
+CREATE TABLE matches (
+  match_id int(11) NOT NULL auto_increment,
+  team1 int(11) NOT NULL default '0',
+  team2 int(11) NOT NULL default '0',
+  gameMessage enum('TeamInvited','inviteDeclined','draw','waiting','finished') default NULL,
+  messageFrom enum('black','white') default NULL,
+  dateCreated datetime NOT NULL default '0000-00-00 00:00:00',
+  boards enum('2','4','6','8') NOT NULL default '2',
+  adj_time smallint(3) NOT NULL default '0',
+  match_points1 int(11) NOT NULL default '0',
+  match_points2 int(11) NOT NULL default '0',
+  winner int(11) NOT NULL default '0',
+  PRIMARY KEY  (match_id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `matches`
+--
+
+
+--
+-- Table structure for table `messages`
+--
+
+CREATE TABLE messages (
+  msgID int(11) NOT NULL auto_increment,
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  msgType enum('undo','draw') NOT NULL default 'undo',
+  msgStatus enum('request','approved','denied') NOT NULL default 'request',
+  destination enum('black','white') NOT NULL default 'black',
+  PRIMARY KEY  (msgID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `messages`
+--
+
+
+--
+-- Table structure for table `news`
+--
+
+CREATE TABLE news (
+  idNews int(11) NOT NULL auto_increment,
+  title varchar(255) NOT NULL default '',
+  date date NOT NULL default '0000-00-00',
+  description text NOT NULL,
+  language varchar(50) NOT NULL default '',
+  PRIMARY KEY  (idNews)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `news`
+--
+
+
+--
+-- Table structure for table `notes`
+--
+
+CREATE TABLE notes (
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  fromID int(5) NOT NULL default '0',
+  note text NOT NULL,
+  hora timestamp(14) NOT NULL,
+  KEY gameID (gameID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `notes`
+--
+
+
+--
+-- Table structure for table `pieces`
+--
+
+CREATE TABLE pieces (
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  color enum('white','black') NOT NULL default 'white',
+  piece enum('pawn','rook','knight','bishop','queen','king') NOT NULL default 'pawn',
+  col smallint(6) NOT NULL default '0',
+  row smallint(6) NOT NULL default '0',
+  KEY gameID (gameID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `pieces`
+--
+
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','rook',7,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','knight',6,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','bishop',5,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','king',4,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','queen',3,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','bishop',2,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','knight',1,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','rook',0,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',7,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',6,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',5,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',3,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',2,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',1,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',0,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'black','pawn',4,4);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',4,3);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',7,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',6,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',5,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',3,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',2,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',1,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','pawn',0,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','rook',7,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','knight',6,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','bishop',5,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','king',4,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','queen',3,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','bishop',2,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','knight',1,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (4,'white','rook',0,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','rook',0,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','knight',1,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','bishop',2,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','queen',3,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','king',4,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','bishop',5,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','knight',6,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','rook',7,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',0,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',1,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',2,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',3,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',4,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',5,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',6,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'white','pawn',7,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',0,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',1,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',2,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',3,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',4,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',5,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',6,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','pawn',7,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','rook',0,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','knight',1,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','bishop',2,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','queen',3,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','king',4,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','bishop',5,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','knight',6,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (5,'black','rook',7,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','rook',0,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','knight',1,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','bishop',2,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','queen',3,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','king',4,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','bishop',5,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','knight',6,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','rook',7,0);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',0,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',1,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',2,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',3,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',4,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',5,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',6,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'white','pawn',7,1);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',0,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',1,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',2,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',3,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',4,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',5,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',6,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','pawn',7,6);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','rook',0,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','knight',1,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','bishop',2,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','queen',3,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','king',4,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','bishop',5,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','knight',6,7);
+INSERT INTO pieces (gameID, color, piece, col, row) VALUES (7,'black','rook',7,7);
+
+--
+-- Table structure for table `players`
+--
+
+CREATE TABLE players (
+  playerID int(11) NOT NULL auto_increment,
+  password varchar(16) NOT NULL default '',
+  firstName varchar(50) NOT NULL default '',
+  lastName varchar(50) default NULL,
+  nick varchar(20) NOT NULL default '',
+  email varchar(50) default NULL,
+  nascimento date default NULL,
+  sexo enum('m','f') default NULL,
+  rua varchar(50) default NULL,
+  bairro varchar(30) default NULL,
+  cep varchar(9) default NULL,
+  cidade varchar(30) default NULL,
+  uf char(2) default NULL,
+  colegio varchar(50) default NULL,
+  colegio_cidade varchar(30) default NULL,
+  colegio_uf char(2) default NULL,
+  escolaridade varchar(25) default NULL,
+  alunopuc enum('0','1') NOT NULL default '0',
+  pontos smallint(6) NOT NULL default '0',
+  ativo enum('0','1') NOT NULL default '1',
+  rating smallint(6) NOT NULL default '1500',
+  rating_max smallint(6) NOT NULL default '1500',
+  rating_month smallint(6) NOT NULL default '1500',
+  engine enum('0','1','2') NOT NULL default '0',
+  engine_flag int(2) NOT NULL default '0',
+  admin enum('1','0') NOT NULL default '0',
+  pais varchar(60) NOT NULL default '',
+  lastUpdate int(11) NOT NULL default '0',
+  avatar mediumblob,
+  validation varchar(16) NOT NULL default '',
+  bio varchar(120) default NULL,
+  showHL int(1) NOT NULL default '1',
+  showHLcolor varchar(7) NOT NULL default '#FFFF00',
+  team varchar(50) default NULL,
+  DisplayBot enum('0','1') NOT NULL default '0',
+  NewUserBot enum('0','1') NOT NULL default '0',
+  PRIMARY KEY  (playerID),
+  UNIQUE KEY nick (nick),
+  KEY rating (rating),
+  KEY rating_2 (rating,rating_month),
+  KEY firstName (firstName(5)),
+  KEY lastUpdate (lastUpdate)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `players`
+--
+
+
+--
+-- Table structure for table `preferences`
+--
+
+CREATE TABLE preferences (
+  playerID int(11) NOT NULL default '0',
+  preference char(20) NOT NULL default '',
+  value char(50) default NULL,
+  PRIMARY KEY  (playerID,preference)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `preferences`
+--
+
+
+--
+-- Table structure for table `team_members`
+--
+
+CREATE TABLE team_members (
+  fk_player int(11) NOT NULL default '0',
+  fk_team int(11) NOT NULL default '0',
+  date int(11) NOT NULL default '0',
+  init_rating int(11) NOT NULL default '0',
+  level int(11) NOT NULL default '0',
+  PRIMARY KEY  (fk_player,fk_team)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `team_members`
+--
+
+
+--
+-- Table structure for table `testchat`
+--
+
+CREATE TABLE testchat (
+  chatID int(11) NOT NULL auto_increment,
+  fromID int(11) NOT NULL default '0',
+  msg text NOT NULL,
+  gameID mediumint(8) unsigned NOT NULL default '0',
+  hora timestamp(14) NOT NULL,
+  PRIMARY KEY  (chatID),
+  KEY fromID (fromID)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `testchat`
+--
+
+INSERT INTO testchat (chatID, fromID, msg, gameID, hora) VALUES (1,3,'Hi Brian are you here?',0,20050127002145);
+INSERT INTO testchat (chatID, fromID, msg, gameID, hora) VALUES (2,1,'so far so good ',0,20050127073329);
+INSERT INTO testchat (chatID, fromID, msg, gameID, hora) VALUES (4,1,'Yeah Im here.. still working on the template :) ',0,20050127074350);
+INSERT INTO testchat (chatID, fromID, msg, gameID, hora) VALUES (5,1,'Hmm looking better ]',0,20050127180608);
+
+--
+-- Table structure for table `tournaments`
+--
+
+CREATE TABLE tournaments (
+  id bigint(10) NOT NULL auto_increment,
+  time int(11) NOT NULL default '0',
+  creator bigint(10) NOT NULL default '0',
+  min_rating int(11) NOT NULL default '0',
+  max_rating int(11) NOT NULL default '0',
+  text text NOT NULL,
+  name varchar(80) NOT NULL default '',
+  players tinyint(2) NOT NULL default '0',
+  player1 int(11) NOT NULL default '0',
+  player2 int(11) NOT NULL default '0',
+  player3 int(11) NOT NULL default '0',
+  player4 int(11) NOT NULL default '0',
+  official tinytext NOT NULL,
+  thematic tinytext NOT NULL,
+  big bigint(10) NOT NULL default '0',
+  winner bigint(10) NOT NULL default '0',
+  display varchar(10) NOT NULL default '',
+  access varchar(11) NOT NULL default '',
+  days int(11) NOT NULL default '0',
+  PRIMARY KEY  (id),
+  KEY name (name(10)),
+  KEY winner (winner)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `tournaments`
+--
+
+
+--
+-- Table structure for table `training_games`
+--
+
+CREATE TABLE training_games (
+  index int(11) NOT NULL auto_increment,
+  id bigint(20) NOT NULL default '0',
+  gameID bigint(20) NOT NULL default '0',
+  playerID bigint(20) NOT NULL default '0',
+  moves_done tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (index)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `training_games`
+--
+
+
+--
+-- Table structure for table `training_ranking`
+--
+
+CREATE TABLE training_ranking (
+  playerID int(10) NOT NULL default '0',
+  id bigint(20) NOT NULL default '0',
+  won tinyint(1) NOT NULL default '0',
+  PRIMARY KEY  (playerID,id)
+) TYPE=MyISAM;
+
+--
+-- Dumping data for table `training_ranking`
+--
+
+

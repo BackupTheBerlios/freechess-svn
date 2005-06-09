@@ -1,0 +1,7 @@
+$Id$
+KNOWN BUGS LIST- SHOULD FOLLOW THE FORMAT BELOW
+
+S.F. BUG_ID Title, Assignee, Status
+
+1110326 - undefined constants and premature html output - trukfixer - Fix Pending
+1107197 - Checkmate Bug in JavaScript  - none - accepted

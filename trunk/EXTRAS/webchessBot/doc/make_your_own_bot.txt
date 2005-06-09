@@ -1,0 +1,46 @@
+
+
+ If you dont like the engine that comes in this package, you can  make another engine that can "talk" with webchess.
+ 
+ You need to know:
+
+ There are 3 important files that the engine uses:
+
+
+ boardIn.txt - This is the input. and play.php will generate it at each move like this:
+ 041b3b41R...K..RP.PP.PBP.P..P.P...........p...pQb.n..B..p.pp.p..r...k...
+
+ 04 is the PLY passed to the engine. So, you can use a easy player or a hard player. You can pass another value like: 08
+
+ 1b3b41
+ ^    ^
+ These numbers are the computer player: With 1 computer plays with black. 0 computer plays with white.
+ b3b4 - This is the last move. Some engines need to know the human move to think your own move.
+
+
+ Upper case characteres are White and lower case are black.
+ Dots are empty positions.
+
+
+ boardOut.txt - THis is the output. The boardIn whit the move.
+
+....r.k.
+p.pp...p
+N.p..n..
+.....pQ.
+...P....
+......PP
+PPP.PP..
+RN...RK.
+
+ move.txt - this file will contain only the move. Like: d2g5
+
+
+
+
+
+ initBoard.txt - This file is useles to the engine. But is used by engine.php to read the initial state of the board. This file looks like this:
+ @move0RNBQKBNRPPPPPPPP................................pppppppprnbqkbnr
+
+
+ 

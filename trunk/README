@@ -1,0 +1,9 @@
+README
+$Id$
+
+This is the main folder, containing all user interface or displaying scripts, scripts that do no displaying or 
+Web Interfaces will be moved to the appropriate folder (includes, config, backends).
+See the FILES document for more information on the files contained in this directory. 
+For Installation of this script, read the INSTALL file in the docs directory.
+
+

@@ -1,0 +1,4 @@
+Fimbulwinter 5.0 was wirited by:
+John Shedletsky 
+shedletsky@stanford.edu 
+http://www.stanford.edu/~jjshed/chess 

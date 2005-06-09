@@ -1,0 +1,26 @@
+TABLE   {
+        /*width: 100%;*/
+        border : 1px solid black;
+        font-size: 11px;
+        font-family: verdana;
+        background: #c0c0c0;
+    }
+
+TD      {
+        background: white;
+        text-align: center;
+    }
+
+.BOTOES {
+        width:110;
+        background-color: #000000;
+        border-color: #c0c0c0;
+        border-width: 3;
+        color: #FFFFFF;
+        font-size:8pt;
+        font-family: verdana;
+    }
+
+BODY    {
+        background: url(chessBG.jpg);
+    }

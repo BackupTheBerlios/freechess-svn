@@ -1,0 +1,68 @@
+FILES LIST
+$Id$
+
+activate.php **formatted**
+allgames.php **formatted**
+analyze.php  **formatted**
+apply.php  **formatted, one sql query optimized a little better**
+avatar.php **formatted. low priority file, very nicely written... ***
+chat.php  **formatted** Ideally should be among the first templated files
+chat_online.php  **formatted** Ideally should be among the first templated files
+chat_window.php **formatted**
+chess.php  **formatted**
+chess_constants.php **should be moved to includes** **formatted** - moved to includes folder
+chessdb.php   **formatted**
+chessutils.php
+cm-allgames.php
+config.php ** should be moved to config**
+configure.php
+connectdb.php ** should be part of config or global_functions **
+credits.php
+exportpgn.php
+footer.inc.php
+forgotpassword.php
+genmedals.php
+global_includes.php
+gui.php
+header.inc.php
+index.php
+inviteplayer.php
+mailmsginvite.php
+mailmsgmove.php
+mailmsgresign.php
+mailmsgtest.php
+mailmsgwithdraw.php
+mailvalidation.php
+mainmenu.php   ** formatted, ported to ADODB and templates
+move.php
+newgame.php
+newuser.php
+ob.lib.php
+opponentspassword.php
+pointsranking.php
+ranking.php
+ranking_1400.php
+ranking_1500.php
+ranking_1600.php
+ranking_1800.php
+ranking_2000.php
+ranking_3000.php
+ranking_enthusiasm_1400.php
+ranking_enthusiasm_1500.php
+ranking_enthusiasm_1600.php
+ranking_enthusiasm_1800.php
+ranking_enthusiasm_2000.php
+ranking_enthusiasm_3000.php
+regras.php
+sanity.php
+sessioncheck.php
+show_avatar.php
+show_user_pv_graph.php
+show_user_rating_graph.php
+stats_team.php
+stats_user.php
+teamranking.php
+teams.php
+tournaments.php
+tournaments_functions.php
+undo.php

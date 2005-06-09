@@ -1,0 +1,9 @@
+{$lang_new_welcome}
+<br><br>
+{$lang_new_confirm_code}
+<br><br>
+{$lang_new_confirm}
+<br><br>
+{$lang_new_thanks}
+<br>
+{$lang_new_game}

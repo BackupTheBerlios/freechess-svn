@@ -1,0 +1,124 @@
+$Id$
+TODO LIST
+2005-03-03 trukfixer
+Search mainmenu.php and all new or changed files for any //TODO comment and sort them into this file.
+I didnt take the time, since there have been so many massive changes to the files as a whole.
+
+mainmenu.php is now fully adodb equipped, and database errorrs are now logged. a completely new swl schema is in the works, teams has been removed
+Forums have been removed, thematics removed, these need to have separate woirk done to make them modular
+Next step- getting all the new data into the template and change the template layout plus fix teh template buttons
+remove all non-game critical javascript (the stupid onsubmit functions, namely . this code has *FAR* too much javascript in it )
+
+Start working on chess.php and get a game playable for further testing, then we'll worry about the remaining features.
+ Start getting output into output buffering functions
+2005-01-25 trukfixer
+**DONE**-- PLACE header license on ALL files where possible (not required in templates)
+**DONE** -- REMOVE ob.lib.php  Numerous warnings and errors- We can handle output buffering with FAR less code
+          using Smarty templates and php's own ob_start(), etc functions. Also we can enable elvels of compression
+**DONE** -- BEGIN integrating adodb encrypted sessions library and create database table
+**DONE** -- BEGIN restructure and re-naming database tables fields and do a review on what is needed, what will allow us to optimize queries
+         and reduce processing time
+-- WRITE benchmark functions for memory usage, processing time, etc.
+-- Get all pages templated, eliminate all echos or other output from any and all PHP files.
+-- Javascript bugs- these may need a TODO, and changelog all their own.
+
+Archived List- Remove as needed.
+Things to do
+
+ New Features:
+ o. shortcuts to other games in the board.php
+ o. minimize page hits
+ 0. Transaction Commint/rollback in game moves.
+ o. Highlight the last move in the board
+
+ o. Stop the clock feature...
+ o. fast-Refresh for time limited game
+ o. Administration area
+ o. Play with anyone feature (chesscorner)
+ o. Draw the game after x rounds, or when player cant move without be in checkmate.
+ o. Computer player need to draw better or resign
+ o. Server side validation of the moves. (Verify turn before do the move.)
+ o. Import PGN, show status  on analyze and show check and checkmate.
+ o. Export More than 1 pgn.
+ o. When a user accept a game, the board open automaticaly (configuravel)
+ o. english intallation manual for windows <<Dennis
+ o. Less time to games over 30 rounds (7 days)
+ o. translate medal message
+ o. Votation team
+ o. Challenge Only active players
+ o. team chat and private messaging
+ o. XML and CSS on everything !!
+ o. Better mail system (send mail when a challenge is accepted)
+ o. Autologin
+ o. Scroll bar at chat
+ o. Ability to search for a particular players active games.
+ o. instructions for new users
+ o. onmouseover in the buttons
+ o. browser list compatible
+ o. What the player is doing?
+ o. Translate KQNBR
+ o. taglines 1 per day
+ o. Change e-mail in configuration
+ o. Points to team only when teams are different
+ o. User privileges for chat and avatar.
+
+1.) When a user first logs in they seem to be at a lose.  They do not
+know how to get a game started.  It might be a good idea to have some
+place where current users can create open challenges.  That way when a
+new user logs in they could go to the a page where there are open
+challenges waiting for them to join.   The user could configure what
+rating would be allowed to accept the challenges.  I think it is
+important that users not be able to create a challenge unless they have
+finished at least five game.  It would be a good feature if when someone
+challenges you a pop up window would appear, no matter what page you
+were on,  saying you have been challenged to a game.  Then you could
+accept or reject the challenge.  If you reject maybe the users specify
+why they can't accept the challenge.  Or maybe it could have a drop down
+feature that would allow the user to choose why they do not want to
+accept the challenge at this time.
+
+2.) I get a lot of requests for messaging system.  Users want to be able
+to send messages to people even if they are not in a game with them.
+
+3.) Users have asked for a feature when signing up that would allow the
+to choose their rating estimated rating. I had one user that was a
+strong player complain about having to play weaker players before they
+could challenge the higher rated players.
+
+4.) Some users have suggested that the rating system be changed to the
+ELO rating system <http://en.wikipedia.org/wiki/Elo_rating_system>.
+
+5.) The chat modification that Georg added seems to be hard on the
+server.  I had to upgrade my server because of this.  It might be better
+to integrate java irc chat or phpchat into the program some how.
+Georg's iframe chat seems to use to much bandwidth.
+
+6) Some sort of next button that would allow players to move from one
+game to the next would be a nice feature.  For an example of this go to
+http://www.chesscorner.net  it is user there.  In chess.php if you have
+active games where it is your move a NEXT button appears and you can
+move from game to game where it is your move.
+
+
+ BugFixes:
+ o. Users in trial mode cant play for oficial tournament
+ o. BUG: Queen Jumping bishops, look at chessmaniac
+ o. Translate forgotpassword.php
+ o. Verify playerID session var
+ o. player can change the id in apply.php
+ o. fix notation history
+    http://www.ex.ac.uk/%7Edregis/DR/notation.txt
+    http://www.chesswarrior.com/notation/notation.html
+
+ Investigate:
+ o. Bug with piece eaten afeter promotion? (reported once)
+ o. Double points computed? (reported some time ago)
+ o. Points not computed? (reported some time ago)
+
+ Testing:
+ o. En passant bug: W:f6f5, b:e5f6 eating in enpassant <<<<<<<<
+ o. isdraw bug<<<<
+ o. ranking mostrando errado em varios lugares?>>>>>>> 1.10
+ 4. Translation of the javascripts
+ 5. Time limited Game
+

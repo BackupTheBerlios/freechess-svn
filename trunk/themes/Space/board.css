@@ -1,0 +1,23 @@
+
+TABLE   {
+		font-family:verdana;
+		font-size: 10px;
+	}
+
+INPUT   {
+		background-color: #000000;
+		border-color: #c0c0c0;
+		border-width: 3;
+		color: #FFFFFF;
+		font-size: 8pt;
+		font-family: verdana;
+	}
+
+
+BODY	{
+		background: url(background.gif);
+	}
+.disabled-dark{background: url(square-darkd.gif); background-color: #8C8989;}
+.disabled-light{background: url(square-lightd.gif); background-color: #BBBBBB;}
+.enabled-dark{background: url(square-dark.gif); background-color: #8C8989;}
+.enabled-light{background: url(square-light.gif); background-color: #EEEEEE;}

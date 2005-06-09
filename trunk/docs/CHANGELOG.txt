@@ -1,0 +1,145 @@
+2004-06-25 (v1.2)
+New Features:
+- Users not validated are erased after 7 days.
+- Tournament System Thanks to: Sir Mondi <GMondwurf@daybyday.de> (Dr. Georg Mondwurf);  Thomas Müller (thomas@fivedigital.net)
+- New Pieces Set
+- User Rating Trial
+- Times at Time Limited Games Configurable
+- Italian translation. (Tanks to Vittorio Nicoletti Altimari)
+- Online limitation. (tanks to marionl)
+- Draw the game after 3 times the same move. 
+- 2 New medals
+- Team members limitation
+- Invite player to join a team
+- Quick Game at Chess Board (layout by Dennis Steele)
+- "portuguese" Language was renamed to "brazilian" portuguese
+
+
+BugFixes:
+- Rating +/- was showing wrong at chess.php (Thanks Georg)
+- 2 Points was being added for the player who lose the game too. (Thanks Nelson)
+- Word wrap in the board chat to prevent layout distortion. (thanks HAT)
+- Promote Pawn with bug after second promotion.
+- Session online/offline stats aren´t update in all pages.
+- Russian translation fix. (tanks to Michael Mushaljuk)
+- Graph Scales adjusted
+- GameID changed to bigint
+- Security Fix: Anyone could see  user´s e-mail with activate.php (Thanks Marionl)
+- Rating/pv graph aren´t showing the current valuer in the end  of the graphic.
+
+
+2004-02-19 (v1.1)
+New Features:
+- Enable/Disable Chat Feature
+- Opponent language at Chat box
+- Minor layout changes 
+- Per page listing limit configurable
+- Graph of user Rating/Pv evolution
+- Autoaccept/Autoreject Challenges
+- News
+- Team Play Feature
+- Analyze game at allgames.php
+- Unlimited Ranking Listing
+- JPGRaph included
+- Random Quotes (Thanks for Dennis Steele)
+- Color Themes
+- Rules for new user registration
+- E-mail validation system
+- Password recovery system
+- Dutch Language added
+- Polish Language added
+- Russian Language added
+- Time Limited Games
+- "Flag Fall" Status to games finished due to time expiration
+- Last Seen in user details
+- Move Confirmation
+- Subranking with medals of merit
+- The user is highlight in the ranking
+- Game punctuation in the chess board.
+- "Nice" Error Messages
+- Public Chat (Thanks to: Sir Mondi <GMondwurf@daybyday.de> (Dr. Georg Mondwurf);  Thomas Müller (thomas@fivedigital.net))
+- Avatar upload (Thanks to: Sir Mondi <GMondwurf@daybyday.de> (Dr. Georg Mondwurf);  Thomas Müller (thomas@fivedigital.net))
+- Themes, Languages directory changed
+- New themes Classic and Wooden. (Thanks to: Sir Mondi)
+
+BugFixes:
+- Time of Move in d:h:m:s (fixed)
+- Ranking at Header was wrong
+- Draw Verification Bug Fixed
+- En-passant Bug 
+- Ranking Pagination fixed
+- Ranking Page speed up
+- Language labels in inviteplayer.php Fixed
+- When promoting a pawn, the board will not refresh
+- Promotepawn BoardDisabled BUG fixed (The player can promote later)
+- Analyze Board display promoted pawn correctly
+- Translation Bugs in draw/undo/checkmate messages
+- Problem with jpgraph in some systems.
+- Apostrophe didn´t work in PHP with magic_quotes disabled
+- Fix to prevent browser caching of the javascripts file
+- Rating +XPW/-XPL displayed in mainmenu and stat_user was wrong.
+- User can cheat with apply.php when playing with a bot.
+
+2003-09-25 (v1.0.7)
+- Ranking will show only users that had played at least one game.
+- Unable to play simultaneous games with the same opponent.
+- Draw Points are wrong at player history
+- Draw Calc changed: Nobody will lose points for a draw.
+- Asking for Draw don´t update lastmove.
+- LastMove is updated when the game ends due to expiration
+- Order by localization at challenges
+- Bug with required fields at new user form
+- Spanish Translation (thanks to Sonia Maria Barros Barbosa Correa)
+- German Translation (thanks to Dr. Georg Mondwurf)
+- Checkmate not recognized (this bug was added at version 1.06)
+- Solved Checkmatebug (getNextAttacker BUG)
+- Analyze board added
+- Export PGN feature
+- Show raking position at mainmenu
+- Autoreload will stop when user starts to write a chat
+- Solved the "multiple windows" bug. (session)
+
+
+2003-07-11 (v1.0.6)
+- Solved problem of the 2 attackers checkmate
+- Draw function: Stalemate verification.
+- English adaptations (thanks to Nelson Newman)
+- PV used for rating calc are the PV when the game starts.
+
+
+2003-07-04 (v1.0.5)
+- PromotePawn problem with Chess Bot player
+- Credits
+- Invite player link in details works now
+- Problems with rating solved
+
+2003-07-03 (v1.0.4)
+- French Version
+- "Delete Old Games" BUG solved!
+- Order by Rating DESC/ASC in Challenges
+
+
+2003-07-02 (v1.0.3)
+- Help Added
+- Improvements in the "challenges" menu
+- "Who is Online" feature.
+- You can choose to play for ranking or not.
+
+
+2003-06-30 (v1.0.2):
+- Solved bugs more in javascript (check-mate bug)
+- solved bug "king near king"
+- multilanguage support
+- Chat
+
+
+2003-06-18 (v1.0.0):
+- Solved bugs in javascript (check-mate bug)
+- visual changes
+- Ranking support
+- Added Rating
+- IA player support (need external bots)
+- Statistics
+- New theme
+- User authentication more secure
+- SharePC feature deactivated

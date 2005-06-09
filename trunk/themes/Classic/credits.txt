@@ -1,0 +1,22 @@
+
+############################################################## 
+## Title: CLASSIC STYLE FOR COMPWEBCHESS
+## Style Author: Mondi <GMondwurf@daybyday.de> (Dr. Georg Mondwurf)
+## http://www.stabi.hs-bremerhaven.de/mondwurf/
+## Style Description: Gives your Compwebchess a classical design
+## Version: 1.0
+## 
+############################################################## 
+##
+## Included Files: Classic.css
+##                     Classic-board.css
+##                     grafic_classic.gif
+##                     graphpaper.jpg
+##                     wood6.jpg
+##                     square-light.gif
+##                     square-dark.gif
+##
+##
+############################################################## 
+## HAVE FUN !!! 
+############################################################## 

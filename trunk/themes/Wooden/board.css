@@ -1,0 +1,23 @@
+
+TABLE   {
+		font-family:verdana;
+		font-size: 10px;
+	}
+
+INPUT   {
+		background-color: #000000;
+		border-color: #c0c0c0;
+		border-width: 1;
+		color: #FFFFFF;
+		font-size: 8pt;
+		font-family: verdana;
+	}
+
+
+BODY	{
+		background: url(wooden.jpg);
+	}
+.disabled-dark{background-color: #8C8989;}
+.disabled-light{background-color: #BBBBBB;}
+.enabled-dark{background-color: #8C8989;}
+.enabled-light{background-color: #EEEEEE;}

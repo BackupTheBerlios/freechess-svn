@@ -1,0 +1,20 @@
+
+############################################################## 
+## Title: WOODEN STYLE FOR COMPWEBCHESS
+## Style Author: Mondi <GMondwurf@daybyday.de> (Dr. Georg Mondwurf)
+## http://www.stabi.hs-bremerhaven.de/mondwurf/
+## Style Description: Gives your Compwebchess a traditional design
+## Version: 1.0
+##
+############################################################## 
+##
+## Included Files: Wooden.css
+##                     Wooden-board.css
+##                     grafic-wood.gif
+##                     graphpaper.jpg
+##                     wooden.jpg
+##                     square-light.gif
+##
+############################################################## 
+## HAVE FUN !!! 
+############################################################## 

@@ -1,0 +1,9 @@
+execute o programa xequemate.exe
+
+escolha apenas a última letra do nome do arquivo: [a-z][0-9]
+
+obs: não é case sensitive.
+
+analise o jogo usando as letras NN ou SS
+
+caso encontre NS ou SN, há contradição e o board foi analizado incorretamente

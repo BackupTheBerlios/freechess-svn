@@ -1,0 +1,32 @@
+
+TABLE   {
+		font-family:verdana;
+		font-size: 10px;
+
+	}
+
+
+TH      {
+		background: white;
+		text-align: center;
+	}
+
+
+
+INPUT   {
+		background-color: #000000;
+		border-color: #c0c0c0;
+		border-width: 1;
+		color: #FFFFFF;
+		font-size: 8pt;
+		font-family: verdana;
+	}
+
+BODY	{
+		background: url(../images/wood6.jpg);
+	}
+
+.disabled-dark{background-image: url(../images/square-dark.gif);} 
+.disabled-light{background-image: url(../images/square-light.gif);} 
+.enabled-dark{background-image: url(../images/square-dark.gif);} 
+.enabled-light{background-image: url(../images/square-light.gif);} 

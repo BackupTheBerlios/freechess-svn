@@ -1,0 +1,41 @@
+
+ This is Comp WebChess. You can found newer versions at:
+ http://www.compwebchess.com
+
+ 
+Requirements:
+
+ - PHP >= 4.x
+ - PHP Extensions: PHP_GD (for graph statistics)
+ - JPGraph (included)
+ - MySQL >= 3.x
+
+
+
+Installation:
+
+ 1. Uncompress compWebchess in a web-accessible directory (ex: /var/www/chess)
+
+ 2. Create a MySQL user (similar to the sample user_permissions.txt)
+
+ 3. Create a MySQL Database:
+    mysql> create database webchess;
+
+ 3. Import the database structure (see file mylsq-script.txt)
+
+ 4. Update the database settings and other desired info in config.php
+
+ 5. Under linux, you need to make the avatar directory writeable by the server:
+    # chmod 777 /webchess_path/images/avatars
+
+ 6. If you enable logging support, don´t forget to make webchess.log writeable
+    for your www server: 
+  
+    # touch /var/log/webchess.log
+    # chown www-data /var/log/webchess.log
+
+ 7. Done!
+
+Note: CompWebChess was only tested in linux servers but should work with Win
+Servers too.
+

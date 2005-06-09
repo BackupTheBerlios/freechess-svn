@@ -1,0 +1,33 @@
+/* Hides from IE5-mac \*/
+* html .buggybox {height: 1%;}
+/* End hide from IE5-mac */ 
+/* Hides from IE5-mac \*/
+* html .buggybox {width: 1%;}
+/* End hide from IE5-mac */ 
+
+TABLE   {
+	
+		border : 1px solid black;
+		font-size: 11px;
+		font-family: verdana;
+		background: #c0c0c0;
+	}
+
+TD      {
+		background: white;
+		text-align: center;
+	}
+
+.BOTOES {
+		width:110;
+		background-color: #000000;
+		border-color: #c0c0c0;
+		border-width: 3;
+		color: #FFFFFF;
+		font-size:8pt;
+		font-family: verdana;
+	}
+
+BODY	{
+		background: url(chessBG.jpg);
+	}
